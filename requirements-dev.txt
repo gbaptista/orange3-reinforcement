@@ -1,0 +1,2 @@
+pylint>=1.8.4
+pycodestyle>=2.4.0
