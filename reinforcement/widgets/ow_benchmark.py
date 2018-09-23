@@ -1,5 +1,3 @@
-from AnyQt import QtWidgets
-
 from AnyQt.QtWidgets import QFrame
 from AnyQt.QtWidgets import QListView
 
@@ -10,20 +8,20 @@ import pyqtgraph as pg
 from Orange.widgets import gui
 from Orange.widgets.widget import Input
 from Orange.widgets.settings import Setting
-from Orange.widgets.utils import colorpalette, colorbrewer
+from Orange.widgets.utils import colorpalette
 
 from .agents.agent import Agent
 
-from .reinforcement_widget import ReinforcementWidget
+from .bases.reinforcement_widget import ReinforcementWidget
+from .utils.colors_widget_mixin import ColorsWidgetMixin
 
 
-class OWBenchmark(ReinforcementWidget):
+class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.benchmark"
     name = "Benchmark"
     description = """Compare Agents performance."""
     icon = "icons/benchmark.png"
     priority = 80
-    category = "Reinforcement"
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     want_main_area = True
@@ -35,7 +33,6 @@ class OWBenchmark(ReinforcementWidget):
     enviroment_id = None
 
     selected_agents = Setting([])
-    colors = []
 
     class Inputs:
         agent = Input("Agent", Agent, multiple=True)
@@ -62,12 +59,12 @@ class OWBenchmark(ReinforcementWidget):
                                     "selected_agents",
                                     "agent_names",
                                     selectionMode=QListView.MultiSelection,
-                                    callback=self._on_agents_changed)
+                                    callback=self.on_agents_changed)
 
         self.render_plot_area(0, 'Total Reward')
         self.render_plot_area(1, 'Steps to Finish')
 
-    def _on_agents_changed(self):
+    def on_agents_changed(self):
         self.render_agents_lines()
 
     def render_agents_lines(self):
@@ -80,7 +77,7 @@ class OWBenchmark(ReinforcementWidget):
             item = self.list_box.item(i)
             if item:
                 item.setIcon(colorpalette.ColorPixmap(self.colors[i]))
-            # TODO line
+
             if i in self.selected_agents:
                 result_line = self.agent_result_to_line(self.agents[i],
                                                         'total_reward')
@@ -139,14 +136,6 @@ class OWBenchmark(ReinforcementWidget):
         )
         self.plot_items[plot_area_i].addItem(line)
 
-    def generate_colors(self, number_of_agents):
-        scheme = colorbrewer.colorSchemes["qualitative"]["Dark2"]
-        if number_of_agents > len(scheme):
-            scheme = colorpalette.DefaultRGBColors
-
-        self.colors = colorpalette.ColorPaletteGenerator(number_of_agents,
-                                                         scheme)
-
     def render_plot_area(self, i, y_label):
         self.plot_areas[i] = pg.GraphicsView(background="w")
         self.plot_areas[i].setFrameStyle(QFrame.StyledPanel)
@@ -169,11 +158,6 @@ class OWBenchmark(ReinforcementWidget):
         axis.setTickFont(tickfont)
         axis.setPen(pen)
         axis.setLabel(y_label)
-
-        # self.plot_items[i].showGrid(True, True, alpha=0.1)
-        # self.plot_items[i].setRange(xRange=(0.0, 2.0),
-        #                             yRange=(0.0, 2.0),
-        #                             padding=0.05)
 
         self.plot_areas[i].setCentralItem(self.plot_items[i])
         self.mainArea.layout().addWidget(self.plot_areas[i])

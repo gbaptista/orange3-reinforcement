@@ -4,20 +4,19 @@ import gym
 
 from Orange.widgets import gui
 
-from Orange.widgets.widget import OWWidget, Msg
 from Orange.widgets.settings import Setting
 from Orange.widgets.utils.signals import Output
 
-from .reinforcement_widget import ReinforcementWidget
+from .utils.auto_apply_widget_mixin import AutoApplyWidgetMixin
+from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWEnv(ReinforcementWidget):
+class OWEnv(AutoApplyWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.env"
     name = "Enviroment"
     description = "OpenAI Gym Enviroment."
     icon = "icons/OpenAI_Logo.svg"
     priority = 60
-    category = "Reinforcement"
     keywords = ["OpenAI Gym", "Enviroment"]
 
     setting_auto_apply = Setting(True)
@@ -55,25 +54,11 @@ class OWEnv(ReinforcementWidget):
             addSpace=4, callback=self.settings_changed
         )
 
-        self.apply_button = gui.auto_commit(
-            self.controlArea, self, 'setting_auto_apply', '&Apply',
-            box=True, commit=self.apply
-        )
-
-    def settings_changed(self, *_args, **_kwargs):
-        self.outdated_settings = True
-        self.Warning.outdated_settings(shown=not self.setting_auto_apply)
-
-        if self.setting_auto_apply:
-            self.apply()
+        self.render_auto_apply_layout()
 
     def apply(self):
         selected_enviroment = self.setting_enviroments[self.setting_enviroment]
 
         self.Outputs.enviroment_id.send(selected_enviroment)
 
-        self.outdated_settings = False
-        self.Warning.outdated_settings.clear()
-
-    class Warning(OWWidget.Warning):
-        outdated_settings = Msg("Press Apply to submit changes.")
+        self.clear_outdated_warning()

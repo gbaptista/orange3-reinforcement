@@ -32,16 +32,17 @@ class RandomAgent(Agent):
         while self.playing:
             action = self.enviroment.action_space.sample()
 
-            # TODO: Slider
-            sleep(0.04)
+            if self.episodes_interval > 0.0:
+                sleep(self.episodes_interval)
 
             _new_state, _reward, done, _info = self.enviroment.step(action)
 
             self.enviroment.render()
 
             if done:
-                # TODO: Slider
-                sleep(0.5)
+                if self.games_interval > 0.0:
+                    sleep(self.games_interval)
+
                 self.enviroment.reset()
                 self.enviroment.render()
 

@@ -6,7 +6,7 @@ from Orange.data import Table, Domain, StringVariable, ContinuousVariable
 
 from Orange.widgets.utils.signals import Output
 
-from .reinforcement_widget import ReinforcementWidget
+from .bases.reinforcement_widget import ReinforcementWidget
 
 
 class OWEnvs(ReinforcementWidget):
@@ -15,7 +15,6 @@ class OWEnvs(ReinforcementWidget):
     description = "List of all available OpenAI Gym Enviroments."
     icon = "icons/list.svg"
     priority = 60
-    category = "Reinforcement"
     keywords = ["OpenAI Gym", "Enviroment"]
 
     class Outputs:

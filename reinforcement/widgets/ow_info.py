@@ -4,7 +4,7 @@ from Orange.widgets import gui
 
 from Orange.widgets.widget import Input
 
-from .reinforcement_widget import ReinforcementWidget
+from .bases.reinforcement_widget import ReinforcementWidget
 
 
 class OWInfo(ReinforcementWidget):
@@ -14,7 +14,6 @@ class OWInfo(ReinforcementWidget):
     as the number and type of observation space and action space."""
     icon = "icons/info.png"
     priority = 80
-    category = "Reinforcement"
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     class Inputs:

@@ -4,7 +4,7 @@ from Orange.widgets import gui
 
 from Orange.widgets.widget import Input
 
-from .reinforcement_widget import ReinforcementWidget
+from .bases.reinforcement_widget import ReinforcementWidget
 
 
 class OWChecker(ReinforcementWidget):
@@ -13,7 +13,6 @@ class OWChecker(ReinforcementWidget):
     description = """Check Open IA Enviroment."""
     icon = "icons/ataricontrol.png"
     priority = 80
-    category = "Reinforcement"
     keywords = ["OpenAI Gym", "Enviroment", "Checker", "Debug"]
 
     enviroment = None
