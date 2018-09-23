@@ -9,11 +9,11 @@ from Orange.widgets.utils.signals import Output
 from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWEnvs(ReinforcementWidget):
-    id = "orange.widgets.reinforcement.envs"
+class OWEnviroments(ReinforcementWidget):
+    id = "orange.widgets.reinforcement.enviroments"
     name = "Enviroments"
     description = "List of all available OpenAI Gym Enviroments."
-    icon = "icons/list.svg"
+    icon = "icons/enviroments_icon.svg"
     priority = 60
     keywords = ["OpenAI Gym", "Enviroment"]
 

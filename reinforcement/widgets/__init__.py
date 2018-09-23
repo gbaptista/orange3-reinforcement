@@ -9,6 +9,6 @@ Creation of Agents with Reinforcement Learning for OpenAI Gym Enviroments.
 
 BACKGROUND = '#CDFAC1'
 
-ICON = 'icons/character.svg'
+ICON = 'icons/reinforcement_icon.svg'
 
 PRIORITY = 4

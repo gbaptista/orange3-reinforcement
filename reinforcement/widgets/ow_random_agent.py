@@ -9,6 +9,7 @@ class OWRandomAgent(AgentWidget):
     id = "orange.widgets.reinforcement.random_agent"
     name = "Random Agent"
     description = """Random Agent."""
+    icon = "icons/random_agent_icon.svg"
 
     class Inputs:
         enviroment_id = Input("Enviroment", str)

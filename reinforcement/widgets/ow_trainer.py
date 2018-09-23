@@ -20,7 +20,7 @@ class OWTrainer(AutoApplyWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.trainer"
     name = "Trainer"
     description = """Train some Agent."""
-    icon = "icons/ataricontrol.png"
+    icon = "icons/trainer_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Train", "Agent"]
 

@@ -7,12 +7,12 @@ from Orange.widgets.widget import Input
 from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWInfo(ReinforcementWidget):
-    id = "orange.widgets.reinforcement.info"
+class OWEnviromentInfo(ReinforcementWidget):
+    id = "orange.widgets.reinforcement.enviroment_info"
     name = "Enviroment Info"
     description = """Display basic information about the enviroment, such
     as the number and type of observation space and action space."""
-    icon = "icons/info.png"
+    icon = "icons/enviroment_info_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 

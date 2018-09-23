@@ -20,7 +20,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.benchmark"
     name = "Benchmark"
     description = """Compare Agents performance."""
-    icon = "icons/benchmark.png"
+    icon = "icons/benchmark_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 

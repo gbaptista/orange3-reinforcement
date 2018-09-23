@@ -11,11 +11,11 @@ from .utils.auto_apply_widget_mixin import AutoApplyWidgetMixin
 from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWEnv(AutoApplyWidgetMixin, ReinforcementWidget):
-    id = "orange.widgets.reinforcement.env"
+class OWEnviroment(AutoApplyWidgetMixin, ReinforcementWidget):
+    id = "orange.widgets.reinforcement.enviroment"
     name = "Enviroment"
     description = "OpenAI Gym Enviroment."
-    icon = "icons/OpenAI_Logo.svg"
+    icon = "icons/enviroment_icon.svg"
     priority = 60
     keywords = ["OpenAI Gym", "Enviroment"]
 

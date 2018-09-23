@@ -12,14 +12,13 @@ from .reinforcement_widget import ReinforcementWidget
 
 
 class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
-    icon = "icons/dice.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     agent = None
     enviroment_id = None
 
-    setting_agent_name = Setting('', schema_only=True)
+    setting_agent_name = Setting('')
 
     class Outputs:
         agent = Output("Agent", Agent)

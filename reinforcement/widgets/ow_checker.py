@@ -11,7 +11,7 @@ class OWChecker(ReinforcementWidget):
     id = "orange.widgets.reinforcement.checker"
     name = "Checker"
     description = """Check Open IA Enviroment."""
-    icon = "icons/ataricontrol.png"
+    icon = "icons/checker_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Checker", "Debug"]
 
@@ -27,13 +27,13 @@ class OWChecker(ReinforcementWidget):
 
         gui.label(self.controlArea, self, "%%(%s)s" % 'enviroment_id')
 
-        gui.button(self.controlArea, self, "Start", callback=self.start_render)
-        gui.button(self.controlArea, self, "Stop", callback=self.stop_render)
+        gui.button(self.controlArea, self, "Open", callback=self.open)
+        gui.button(self.controlArea, self, "Close", callback=self.close)
 
-    def stop_render(self):
+    def close(self):
         self.enviroment.close()
 
-    def start_render(self):
+    def open(self):
         if self.enviroment:
             self.enviroment.close()
 

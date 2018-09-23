@@ -13,7 +13,7 @@ class OWPlay(ReinforcementWidget):
     id = "orange.widgets.reinforcement.play"
     name = "Play"
     description = """Play Open IA Enviroment with some Agent."""
-    icon = "icons/ataricontrol.png"
+    icon = "icons/play_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Play", "Agent"]
 
