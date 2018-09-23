@@ -2,8 +2,6 @@ from copy import deepcopy
 
 from AnyQt.QtCore import pyqtSlot
 
-from Orange.widgets import gui
-
 from Orange.widgets.widget import Input, Output
 
 from Orange.widgets.settings import Setting
@@ -13,10 +11,11 @@ from Orange.widgets.utils.concurrent import methodinvoke
 from .agents.agent import Agent
 
 from .utils.auto_apply_widget_mixin import AutoApplyWidgetMixin
+from .utils.sliders_widget_mixin import SlidersWidgetMixin
 from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWTrainer(AutoApplyWidgetMixin, ReinforcementWidget):
+class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.trainer"
     name = "Trainer"
     description = """Train some Agent."""
@@ -53,18 +52,10 @@ class OWTrainer(AutoApplyWidgetMixin, ReinforcementWidget):
     def __init__(self):
         super().__init__()
 
-        self.set_agent(None)
+        self.agent = None
+        self.enviroment_id = 'Not received.'
 
-        for slider in self.sliders:
-            gui.separator(self.controlArea, 0, 10)
-
-            gui.widgetLabel(self.controlArea, slider['label'])
-
-            gui.hSlider(
-                self.controlArea, self, slider['key'],
-                minValue=slider['min'], maxValue=slider['max'],
-                intOnly=False, ticks=1, createLabel=True, width=300,
-                step=slider['step'])
+        self.render_sliders(self.sliders)
 
         self.render_auto_apply_layout()
 
@@ -89,9 +80,6 @@ class OWTrainer(AutoApplyWidgetMixin, ReinforcementWidget):
 
     @Inputs.agent
     def set_agent(self, agent):
-        self.agent = None
-        self.enviroment_id = 'Not received.'
-
         if agent is not None:
             agent.prepare_to_pickle()
 
