@@ -6,10 +6,11 @@ from Orange.widgets.settings import Setting
 
 from .agents.agent import Agent
 
+from .utils.sliders_widget_mixin import SlidersWidgetMixin
 from .bases.reinforcement_widget import ReinforcementWidget
 
 
-class OWPlay(ReinforcementWidget):
+class OWPlay(SlidersWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.play"
     name = "Play"
     description = """Play Open IA Enviroment with some Agent."""
@@ -29,22 +30,14 @@ class OWPlay(ReinforcementWidget):
     def __init__(self):
         super().__init__()
 
-        self.set_agent(None)
+        self.agent = None
+        self.enviroment_id = 'Not received.'
 
         gui.separator(self.controlArea, 0, 6)
 
         gui.label(self.controlArea, self, "%%(%s)s" % 'enviroment_id')
 
-        for slider in self.sliders():
-            gui.separator(self.controlArea, 0, 10)
-
-            gui.widgetLabel(self.controlArea, slider['label'])
-
-            gui.hSlider(
-                self.controlArea, self, slider['key'],
-                minValue=slider['min'], maxValue=slider['max'],
-                intOnly=False, ticks=0.01, createLabel=True, width=300,
-                step=slider['step'], callback=slider['callback'])
+        self.render_sliders(self.sliders())
 
         gui.separator(self.controlArea, 0, 10)
 
@@ -77,9 +70,6 @@ class OWPlay(ReinforcementWidget):
 
     @Inputs.agent
     def set_agent(self, agent):
-        self.agent = None
-        self.enviroment_id = 'Not received.'
-
         if agent is not None:
             self.agent = agent
             self.enviroment_id = self.agent.enviroment_id

@@ -2,12 +2,10 @@ import gym
 
 from Orange.widgets import gui
 
-from Orange.widgets.widget import Input
-
-from .bases.reinforcement_widget import ReinforcementWidget
+from .bases.enviroment_input_widget import EnviromentInputWidget
 
 
-class OWChecker(ReinforcementWidget):
+class OWChecker(EnviromentInputWidget):
     id = "orange.widgets.reinforcement.checker"
     name = "Checker"
     description = """Check Open IA Enviroment."""
@@ -16,9 +14,6 @@ class OWChecker(ReinforcementWidget):
     keywords = ["OpenAI Gym", "Enviroment", "Checker", "Debug"]
 
     enviroment = None
-
-    class Inputs:
-        enviroment_id = Input("Enviroment", str)
 
     def __init__(self):
         super().__init__()
@@ -41,7 +36,6 @@ class OWChecker(ReinforcementWidget):
         self.enviroment.reset()
         self.enviroment.render()
 
-    @Inputs.enviroment_id
     def set_enviroment_id(self, enviroment_id):
         self.enviroment_id = 'Not found.'
 

@@ -2,12 +2,10 @@ import gym
 
 from Orange.widgets import gui
 
-from Orange.widgets.widget import Input
-
-from .bases.reinforcement_widget import ReinforcementWidget
+from .bases.enviroment_input_widget import EnviromentInputWidget
 
 
-class OWEnviromentInfo(ReinforcementWidget):
+class OWEnviromentInfo(EnviromentInputWidget):
     id = "orange.widgets.reinforcement.enviroment_info"
     name = "Enviroment Info"
     description = """Display basic information about the enviroment, such
@@ -15,9 +13,6 @@ class OWEnviromentInfo(ReinforcementWidget):
     icon = "icons/enviroment_info_icon.svg"
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
-
-    class Inputs:
-        enviroment_id = Input("Enviroment", str)
 
     def __init__(self):
         super().__init__()
@@ -35,7 +30,6 @@ class OWEnviromentInfo(ReinforcementWidget):
             )
             gui.label(v_box, self, "%%(%s)s" % name)
 
-    @Inputs.enviroment_id
     def set_enviroment_id(self, enviroment_id):
         self.enviroment_id = '?'
 
