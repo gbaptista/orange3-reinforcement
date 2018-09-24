@@ -2,7 +2,7 @@ from Orange.widgets.widget import OWWidget
 
 from Orange.widgets.tests.base import WidgetTest
 
-from ..colors_widget_mixin import ColorsWidgetMixin
+from ...utils.colors_widget_mixin import ColorsWidgetMixin
 
 
 class TestColorsWidgetMixin(WidgetTest):

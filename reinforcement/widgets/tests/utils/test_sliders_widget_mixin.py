@@ -2,7 +2,7 @@ from Orange.widgets.widget import OWWidget
 
 from Orange.widgets.tests.base import WidgetTest
 
-from ..sliders_widget_mixin import SlidersWidgetMixin
+from ...utils.sliders_widget_mixin import SlidersWidgetMixin
 
 
 class TestSlidersWidgetMixin(WidgetTest):

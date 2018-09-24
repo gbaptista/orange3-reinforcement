@@ -4,7 +4,7 @@ from ..agents.random.random_agent import RandomAgent
 
 from ..ow_random_agent import OWRandomAgent
 
-from .test_helpers.agent_output_signal_mixin import AgentOutputSignalMixin
+from ._test_helpers.agent_output_signal_mixin import AgentOutputSignalMixin
 
 
 class TestOWRandomAgent(AgentOutputSignalMixin, WidgetTest):

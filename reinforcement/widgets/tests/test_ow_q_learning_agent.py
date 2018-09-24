@@ -4,7 +4,7 @@ from ..agents.q_learning.q_learning_agent import QLearningAgent
 
 from ..ow_q_learning_agent import OWQLearningAgent
 
-from .test_helpers.agent_output_signal_mixin import AgentOutputSignalMixin
+from ._test_helpers.agent_output_signal_mixin import AgentOutputSignalMixin
 
 
 class TestOWQLearningAgent(AgentOutputSignalMixin, WidgetTest):

@@ -2,7 +2,7 @@ from Orange.widgets.widget import OWWidget
 
 from Orange.widgets.tests.base import WidgetTest
 
-from ..auto_apply_widget_mixin import AutoApplyWidgetMixin
+from ...utils.auto_apply_widget_mixin import AutoApplyWidgetMixin
 
 
 class TestAutoApplyWidgetMixin(WidgetTest):
