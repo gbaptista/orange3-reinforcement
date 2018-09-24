@@ -6,8 +6,14 @@ from Orange.widgets.settings import Setting
 
 class AutoApplyWidgetMixin:
     setting_auto_apply = Setting(True)
+    outdated_settings = False
+
+    def apply(self):
+        pass
 
     def render_auto_apply_layout(self):
+        self.setting_auto_apply = bool(self.setting_auto_apply)
+
         self.apply_button = gui.auto_commit(
             self.controlArea, self, 'setting_auto_apply', '&Apply',
             box=True, commit=self.apply, callback=self.auto_apply_changed)

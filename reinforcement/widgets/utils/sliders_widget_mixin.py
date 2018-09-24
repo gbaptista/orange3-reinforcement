@@ -16,3 +16,5 @@ class SlidersWidgetMixin:
                 minValue=slider['min'], maxValue=slider['max'],
                 intOnly=False, ticks=0.01, createLabel=True, width=300,
                 step=slider['step'], callback=slider['callback'])
+
+        return True

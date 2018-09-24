@@ -21,7 +21,6 @@ class OWEnviroment(AutoApplyWidgetMixin, ReinforcementWidget):
 
     setting_auto_apply = Setting(True)
     setting_enviroment = Setting(-1)
-    outdated_settings = False
 
     class Outputs:
         enviroment_id = Output("Enviroment", str)
@@ -48,7 +47,7 @@ class OWEnviroment(AutoApplyWidgetMixin, ReinforcementWidget):
     def render_layout(self):
         box = gui.widgetBox(self.controlArea, box=True)
 
-        self.penalty_combo = gui.comboBox(
+        self.enviroments_combo = gui.comboBox(
             box, self, "setting_enviroment", label="Enviroment: ",
             items=self.setting_enviroments, orientation=Qt.Horizontal,
             addSpace=4, callback=self.settings_changed

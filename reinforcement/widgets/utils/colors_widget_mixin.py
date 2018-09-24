@@ -2,7 +2,6 @@ from Orange.widgets.utils import colorpalette, colorbrewer
 
 
 class ColorsWidgetMixin:
-
     colors = []
 
     def generate_colors(self, number_of_colors):

@@ -3,7 +3,7 @@ from AnyQt.QtCore import Qt
 from Orange.widgets import gui
 
 from Orange.widgets.settings import Setting
-from Orange.widgets.widget import Output
+from Orange.widgets.widget import Input, Output
 
 from ..agents.agent import Agent
 
@@ -19,6 +19,9 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     enviroment_id = None
 
     setting_agent_name = Setting('')
+
+    class Inputs:
+        enviroment_id = Input("Enviroment", str)
 
     class Outputs:
         agent = Output("Agent", Agent)
@@ -38,6 +41,10 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
             orientation=Qt.Horizontal, callback=self.settings_changed)
 
         self.render_auto_apply_layout()
+
+    @Inputs.enviroment_id
+    def set_enviroment_id(self, enviroment_id):
+        pass
 
     def apply(self):
         if self.agent is not None:
