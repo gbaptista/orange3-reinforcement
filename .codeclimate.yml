@@ -1,0 +1,7 @@
+engines:
+  pylint:
+    enabled: true
+    channel: "beta"
+plugins:
+  pep8:
+    enabled: true
