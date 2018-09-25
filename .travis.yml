@@ -17,4 +17,4 @@ install:
   - source $TRAVIS_BUILD_DIR/.travis/stage_install.sh
 
 script:
-  - pytest
+  - source $TRAVIS_BUILD_DIR/.travis/stage_script.sh
