@@ -27,3 +27,6 @@ before_script:
 
 script:
   - source $TRAVIS_BUILD_DIR/.travis/stage_script.sh
+
+after_script:
+  - source $TRAVIS_BUILD_DIR/.travis/after_script.sh
