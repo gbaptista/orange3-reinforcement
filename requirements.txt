@@ -2,6 +2,4 @@ Orange3>=3.16.0
 SIP>=4.19.8
 PyQt5>=5.11.2
 gym>=0.10.5
-gym[atari]>=0.10.5
-gym[box2d]>=0.10.5
 gym[classic_control]>=0.10.5
