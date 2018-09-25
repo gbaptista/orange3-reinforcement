@@ -96,8 +96,6 @@ class AgentTrainMixin():
                                               seconds, episodes,
                                               interations))
 
-            self.enviroment.reset()
-
             self.trained_episodes += 1
 
             # pylint: disable=assignment-from-no-return

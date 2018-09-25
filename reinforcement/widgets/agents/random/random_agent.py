@@ -9,6 +9,8 @@ class RandomAgent(Agent):
     def train_episode(self):
         done = False
 
+        _state = self.enviroment.reset()
+
         steps_to_finish = 0
         total_reward = 0
 

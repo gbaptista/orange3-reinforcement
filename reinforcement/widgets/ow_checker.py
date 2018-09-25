@@ -33,7 +33,6 @@ class OWChecker(EnviromentInputWidget):
             self.enviroment.close()
 
         self.enviroment = gym.make(self.enviroment_id)
-        self.enviroment.reset()
         self.enviroment.render()
 
     def set_enviroment_id(self, enviroment_id):
