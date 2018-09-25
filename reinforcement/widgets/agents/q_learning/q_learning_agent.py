@@ -23,13 +23,17 @@ class QLearningAgent(Agent):
         state = self.enviroment.reset()
 
         while not done:
-            random_values = self.Q[state] + np.random.rand(1, self.number_of_actions) / 1000
+            random_values = (self.Q[state]
+                             + np.random.rand(1, self.number_of_actions)
+                             / 1000)
 
             action = np.ndarray.argmax(random_values)
 
             new_state, reward, done, _info = self.enviroment.step(action)
 
-            self.Q[state, action] = reward + self.gamma * np.max(self.Q[new_state])
+            self.Q[state, action] = (reward
+                                     + self.gamma
+                                     * np.max(self.Q[new_state]))
 
             state = new_state
 
