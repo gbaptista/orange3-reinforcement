@@ -5,3 +5,5 @@ plugins:
   pylint:
     enabled: true
     channel: "beta"
+  radon: 
+    enabled: true
