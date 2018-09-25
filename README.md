@@ -1,4 +1,7 @@
-# Reinforcement Learning
+Reinforcement Learning
+======
+
+[![Build Status](https://travis-ci.org/gbaptista/orange3-reinforcement.svg?branch=master)](https://travis-ci.org/gbaptista/orange3-reinforcement)
 
 [Orange3](https://github.com/openai/gym) Addon with [OpenAI Gym](https://gym.openai.com/) support.
 
