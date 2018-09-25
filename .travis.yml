@@ -2,21 +2,19 @@ language: python
 python:
   - "3.6"
 
-cache:
-  apt: true
-  pip: true
-  ccache: true
-  directories:
-    - $TRAVIS_BUILD_DIR/pyqt
+# cache:
+#   apt: true
+#   pip: true
+#   ccache: true
+#   directories:
+#     - $TRAVIS_BUILD_DIR/pyqt
 
 before_install:
   - set -e  # fail on any error
   - source $TRAVIS_BUILD_DIR/.travis/util.sh
 
 install:
-  - source $TRAVIS_BUILD_DIR/.travis/util.sh
-  - source $TRAVIS_BUILD_DIR/.travis/install_pyqt.sh
-  - pip install -r requirements-dev.txt
-  - pip install -r requirements.txt
+  - source $TRAVIS_BUILD_DIR/.travis/stage_install.sh
+
 script:
   - pytest
