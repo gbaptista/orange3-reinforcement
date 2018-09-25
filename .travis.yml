@@ -2,12 +2,12 @@ language: python
 python:
   - "3.6"
 
-# cache:
-#   apt: true
-#   pip: true
-#   ccache: true
-#   directories:
-#     - $TRAVIS_BUILD_DIR/pyqt
+cache:
+  apt: true
+  pip: true
+  ccache: true
+  directories:
+    - $TRAVIS_BUILD_DIR/pyqt
 
 before_install:
   - set -e  # fail on any error
