@@ -1,5 +1,3 @@
-from Orange.widgets.utils.concurrent import methodinvoke
-
 from ....agents.q_learning.q_learning_agent import QLearningAgent
 
 
