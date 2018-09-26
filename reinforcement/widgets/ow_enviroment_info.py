@@ -14,10 +14,20 @@ class OWEnviromentInfo(EnviromentInputWidget):
     priority = 80
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
+    enviroment_id = None
+
+    observation_space = None
+    action_space = None
+    reward_range = None
+
+    timestep_limit = None
+    trials = None
+    reward_threshold = None
+
     def __init__(self):
         super().__init__()
 
-        self.set_enviroment_id(None)
+        self.set_initial_values()
 
         for box in ("Enviroment Id",
                     "Observation Space", "Action Space",
@@ -30,7 +40,7 @@ class OWEnviromentInfo(EnviromentInputWidget):
             )
             gui.label(v_box, self, "%%(%s)s" % name)
 
-    def set_enviroment_id(self, enviroment_id):
+    def set_initial_values(self):
         self.enviroment_id = '?'
 
         self.observation_space = '?'
@@ -41,6 +51,7 @@ class OWEnviromentInfo(EnviromentInputWidget):
         self.trials = '?'
         self.reward_threshold = '?'
 
+    def set_enviroment_id(self, enviroment_id):
         if enviroment_id is not None:
             for enviroment in gym.envs.registry.all():
                 if enviroment.id == enviroment_id:

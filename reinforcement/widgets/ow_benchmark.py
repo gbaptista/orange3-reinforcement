@@ -82,12 +82,14 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
                 result_line = self.agent_result_to_line(self.agents[i],
                                                         'total_reward')
 
-                self.add_line(0, i, result_line['x'], result_line['y'])
+                self.add_line(0, i, {'x': result_line['x'],
+                                     'y': result_line['y']})
 
                 result_line = self.agent_result_to_line(self.agents[i],
                                                         'steps_to_finish')
 
-                self.add_line(1, i, result_line['x'], result_line['y'])
+                self.add_line(1, i, {'x': result_line['x'],
+                                     'y': result_line['y']})
 
     @staticmethod
     def agent_result_to_line(agent, key):
@@ -119,7 +121,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
 
             self.render_agents_lines()
 
-    def add_line(self, plot_area_i, line_i, x_values, y_values):
+    def add_line(self, plot_area_i, line_i, values):
         color = self.colors[line_i]
 
         pen = QPen(color, 1)
@@ -129,7 +131,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
         shadow_pen.setCosmetic(True)
 
         line = pg.PlotDataItem(
-            x_values, y_values,
+            values['x'], values['y'],
             pen=pen, shadowPen=shadow_pen,
             symbol="+", symbolSize=3,
             symbolPen=shadow_pen, antialias=True
