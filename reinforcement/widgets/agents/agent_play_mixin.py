@@ -18,7 +18,13 @@ class AgentPlayMixin():
 
         self.enviroment = gym.make(self.enviroment_id)
 
-        self._executor.submit(partial(self.play_task))
+        self.playing = True
+
+        state = self.enviroment.reset()
+
+        self.enviroment.render()
+
+        self._executor.submit(partial(self.play_task, state))
 
     def stop(self):
         self.playing = False
@@ -26,29 +32,22 @@ class AgentPlayMixin():
     def play_action(self, state):
         pass
 
-    def play_task(self):
-        state = self.enviroment.reset()
-
-        self.enviroment.render()
-
-        self.playing = True
-
+    def play_task(self, state):
         while self.playing:
             # pylint: disable=assignment-from-no-return
             action = self.play_action(state)
 
-            if self.episodes_interval > 0.0:
-                sleep(self.episodes_interval)
+            sleep(self.episodes_interval)
 
             _new_state, _reward, done, _info = self.enviroment.step(action)
 
             self.enviroment.render()
 
             if done:
-                if self.games_interval > 0.0:
-                    sleep(self.games_interval)
+                sleep(self.games_interval)
 
-                self.enviroment.reset()
+                state = self.enviroment.reset()
+
                 self.enviroment.render()
 
         self.enviroment.close()
