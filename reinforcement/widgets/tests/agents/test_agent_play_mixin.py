@@ -1,8 +1,4 @@
-from functools import partial
-
 import gym
-
-from Orange.widgets.utils.concurrent import ThreadExecutor
 
 from ...agents.agent_play_mixin import AgentPlayMixin
 

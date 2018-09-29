@@ -1,3 +1,5 @@
+import numpy as np
+
 from AnyQt.QtWidgets import QFrame
 from AnyQt.QtWidgets import QListView
 
@@ -14,9 +16,12 @@ from .agents.agent import Agent
 
 from .bases.reinforcement_widget import ReinforcementWidget
 from .utils.colors_widget_mixin import ColorsWidgetMixin
+from .utils.sliders_widget_mixin import SlidersWidgetMixin
+from .utils.chart_shortener_mixin import ChartShortenerMixin
 
 
-class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
+class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
+                  ChartShortenerMixin, SlidersWidgetMixin):
     id = "orange.widgets.reinforcement.benchmark"
     name = "Benchmark"
     description = """Compare Agents performance."""
@@ -33,6 +38,8 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
     enviroment_id = None
 
     selected_agents = Setting([])
+    setting_max_points = Setting(200)
+    setting_first_and_last_values = Setting(False)
 
     class Inputs:
         agent = Input("Agent", Agent, multiple=True)
@@ -50,7 +57,24 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
 
         self.render_layout()
 
+    def sliders(self):
+        return [
+            {'label': 'Max Points:', 'key': 'setting_max_points',
+             'min': 10, 'max': 1000, 'step': 200,
+             'callback': self.settings_changed}]
+
     def render_layout(self):
+        gui.separator(self.controlArea, 0, 6)
+
+        gui.checkBox(self.controlArea, self,
+                     'setting_first_and_last_values',
+                     'Absolute first and last values.',
+                     callback=self.on_agents_changed)
+
+        self.render_sliders(self.sliders(), 200, 2)
+
+        gui.separator(self.controlArea, 0, 6)
+
         cbox = gui.vBox(self.controlArea, "Agents:")
         cbox.setFlat(True)
 
@@ -63,6 +87,9 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
 
         self.render_plot_area(0, 'Total Reward')
         self.render_plot_area(1, 'Steps to Finish')
+
+    def settings_changed(self):
+        self.render_agents_lines()
 
     def on_agents_changed(self):
         self.render_agents_lines()
@@ -91,15 +118,33 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
                 self.add_line(1, i, {'x': result_line['x'],
                                      'y': result_line['y']})
 
-    @staticmethod
-    def agent_result_to_line(agent, key):
-        x_points = []
-        y_points = []
+    def agent_result_to_line(self, agent, key):
+        x_points = np.empty(0)
+        y_points = np.empty(0)
 
-        for episode in agent.train_results:
-            y_value = agent.train_results[episode][key]
-            x_points.append(episode)
-            y_points.append(y_value)
+        result_values_for_key = np.fromiter(map(lambda result: result[key],
+                                                agent.train_results),
+                                            np.float64)
+
+        bool_first_and_last_values = bool(self.setting_first_and_last_values)
+
+        shortened_results = self.shorten_points(result_values_for_key,
+                                                int(self.setting_max_points),
+                                                bool_first_and_last_values)
+
+        print('----------------------------------------------------------')
+        print(result_values_for_key)
+        print('----------------------------------------------------------')
+        print(shortened_results)
+
+        for episode in shortened_results:
+            result = shortened_results[episode]
+
+            x_value = episode
+            y_value = result
+
+            x_points = np.append(x_points, x_value)
+            y_points = np.append(y_points, y_value)
 
         return {'x': x_points, 'y': y_points}
 
@@ -143,8 +188,11 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget):
         self.plot_areas[i].setFrameStyle(QFrame.StyledPanel)
 
         self.plot_items[i] = pg.PlotItem(enableMenu=True)
-        self.plot_items[i].setMouseEnabled(False, False)
+        self.plot_items[i].setMouseEnabled(True, False)
         self.plot_items[i].hideButtons()
+        self.plot_items[i].enableAutoScale()
+        self.plot_items[i].enableAutoRange(x=True, y=True)
+        self.plot_items[i].showGrid(x=True, y=True, alpha=0.1)
 
         pen = QPen(self.palette().color(QPalette.Text))
 

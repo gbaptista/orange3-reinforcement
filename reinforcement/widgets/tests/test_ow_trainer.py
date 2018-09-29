@@ -10,7 +10,7 @@ class TestOWTrainer(WidgetTest):
         self.widget = self.create_widget(OWTrainer)
 
     def test_input_signal(self):
-        input_agent = RandomAgent('CartPole-v1')
+        input_agent = RandomAgent('FrozenLake-v0')
 
         assert self.widget.agent is None
 

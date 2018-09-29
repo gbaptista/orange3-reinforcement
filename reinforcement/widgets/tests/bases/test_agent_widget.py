@@ -10,7 +10,7 @@ class TestAgentWidget(WidgetTest):
         self.widget = self.create_widget(AgentWidget)
 
     def test_render(self):
-        self.widget.build_and_send_agent('CartPole-v1', RandomAgent)
+        self.widget.build_and_send_agent('FrozenLake-v0', RandomAgent)
 
         self.widget.apply()
         self.widget.render_layout()
@@ -20,10 +20,10 @@ class TestAgentWidget(WidgetTest):
 
         assert self.get_output("Agent") is None
 
-        self.widget.build_and_send_agent('CartPole-v1', RandomAgent)
+        self.widget.build_and_send_agent('FrozenLake-v0', RandomAgent)
 
         assert self.widget.agent is not None
 
-        assert self.widget.agent.name == 'Random Agent (CartPole-v1)'
+        assert self.widget.agent.name == 'Random Agent (FrozenLake-v0)'
 
         assert self.get_output("Agent") is not None
