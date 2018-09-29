@@ -14,28 +14,21 @@ class ChartShortenerMixin:
 
         shortened_points = {}
 
+        current_point = 0
+
         if first_and_last_values:
             shortened_points[0] = points[:1][0]
-
-            current_point = 1
-        else:
-            current_point = 0
+            current_point += 1
 
         for _page in range(1, pages + 1):
-
             from_index, to_index = self.from_to_index(current_point,
                                                       points,
                                                       per_page,
                                                       first_and_last_values)
 
-            actual_index = int(from_index + ((to_index - from_index) / 2))
-
-            if from_index == to_index:
-                sub_points = points[to_index]
-            else:
-                sub_points = points[from_index:to_index]
-
-            page_value = np.sum(sub_points) / sub_points.size
+            actual_index, page_value = self.page_index_and_value(from_index,
+                                                                 to_index,
+                                                                 points)
 
             shortened_points[actual_index] = page_value
 
@@ -45,6 +38,15 @@ class ChartShortenerMixin:
             shortened_points[points.size-1] = points[-1]
 
         return shortened_points
+
+    def page_index_and_value(self, from_index, to_index, points):
+        actual_index = int(from_index + ((to_index - from_index) / 2))
+
+        sub_points = self.points_from_to(from_index, to_index, points)
+
+        page_value = np.sum(sub_points) / sub_points.size
+
+        return (actual_index, page_value)
 
     @staticmethod
     def pages_and_per_page(points, max_points, first_and_last_values):
@@ -70,6 +72,13 @@ class ChartShortenerMixin:
             to_index = points.size - last_index_distance
 
         return (from_index, to_index)
+
+    @staticmethod
+    def points_from_to(from_index, to_index, points):
+        if from_index == to_index:
+            return points[to_index]
+
+        return points[from_index:to_index]
 
     @staticmethod
     def mapped_points(points):
