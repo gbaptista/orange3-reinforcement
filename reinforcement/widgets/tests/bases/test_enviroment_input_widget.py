@@ -8,6 +8,6 @@ class TestEnviromentInputWidget(WidgetTest):
         self.widget = self.create_widget(EnviromentInputWidget)
 
     def test_input(self):
-        input_enviroment_id = 'CartPole-v1'
+        input_enviroment_id = 'FrozenLake-v0'
 
         self.send_signal("Enviroment", input_enviroment_id)

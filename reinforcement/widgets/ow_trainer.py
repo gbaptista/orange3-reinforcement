@@ -31,7 +31,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     setting_hours = Setting(0)
     setting_days = Setting(0)
 
-    sliders = [
+    SLIDERS = [
         {'label': 'Episodes:', 'key': 'setting_episodes',
          'min': 0, 'max': 999, 'step': 10},
         {'label': 'Seconds:', 'key': 'setting_seconds',
@@ -55,7 +55,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         self.agent = None
         self.enviroment_id = 'Not received.'
 
-        self.render_sliders(self.sliders)
+        self.render_sliders(self.SLIDERS)
 
         self.render_auto_apply_layout()
 
@@ -87,6 +87,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
             self.agent.initial_trained_episodes = agent.trained_episodes
             self.agent.initial_train_results = deepcopy(agent.train_results)
+            self.agent.initial_memory = deepcopy(agent.memory)
 
             self.enviroment_id = self.agent.enviroment_id
 

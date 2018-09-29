@@ -34,7 +34,7 @@ class OWEnviroment(AutoApplyWidgetMixin, ReinforcementWidget):
         for i, enviroment in enumerate(gym.envs.registry.all()):
             self.setting_enviroments += (enviroment.id,)
 
-            if enviroment.id == 'CartPole-v1':
+            if enviroment.id == 'FrozenLake-v0':
                 default_enviroment = i
 
         if self.setting_enviroment == -1:

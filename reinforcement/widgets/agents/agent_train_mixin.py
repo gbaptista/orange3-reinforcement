@@ -1,8 +1,8 @@
 import time
 
 from copy import deepcopy
-
 from functools import partial
+import numpy as np
 
 from Orange.widgets.utils.concurrent import ThreadExecutor
 
@@ -13,6 +13,9 @@ class AgentTrainMixin():
 
     trained_episodes = 0
     initial_trained_episodes = 0
+
+    memory = None
+    initial_memory = None
 
     _progress = 0
 
@@ -113,6 +116,7 @@ class AgentTrainMixin():
 
         self.trained_episodes = self.initial_trained_episodes
         self.train_results = deepcopy(self.initial_train_results)
+        self.memory = deepcopy(self.initial_memory)
 
         while episode <= episodes or self.has_available_time(started_time,
                                                              seconds):
@@ -126,7 +130,9 @@ class AgentTrainMixin():
             self.trained_episodes += 1
 
             # pylint: disable=assignment-from-no-return
-            self.train_results[self.trained_episodes] = self.train_episode()
+            result = self.train_episode()
+
+            self.train_results = np.append(self.train_results, result)
 
             if not self.has_available_time(started_time, seconds):
                 episode += 1

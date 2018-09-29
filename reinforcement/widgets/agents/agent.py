@@ -1,4 +1,5 @@
 import gym
+import numpy as np
 
 from Orange.util import Reprable
 
@@ -18,8 +19,8 @@ class Agent(AgentTrainMixin, AgentPlayMixin, Reprable):
     def __init__(self, enviroment_id):
         self.enviroment_id = enviroment_id
         self.enviroment = gym.make(self.enviroment_id)
-        self.train_results = {}
-        self.initial_train_results = {}
+        self.train_results = np.empty(0)
+        self.initial_train_results = np.empty(0)
 
     def prepare_to_pickle(self):
         self.ow_widget = None

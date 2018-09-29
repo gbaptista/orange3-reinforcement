@@ -2,7 +2,7 @@ from ...agents.agent import Agent
 
 
 def test_prepare_to_pickle():
-    enviroment_id = 'CartPole-v1'
+    enviroment_id = 'FrozenLake-v0'
 
     agent = Agent(enviroment_id)
 

@@ -10,7 +10,7 @@ class TestOWPlay(WidgetTest):
         self.widget = self.create_widget(OWPlay)
 
     def test_input_signal(self):
-        input_agent = RandomAgent('CartPole-v1')
+        input_agent = RandomAgent('FrozenLake-v0')
 
         assert input_agent.episodes_interval == 0.0
         assert input_agent.games_interval == 0.0
