@@ -86,7 +86,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
                                     callback=self.on_agents_changed)
 
         self.render_plot_area(0, 'Total Reward')
-        self.render_plot_area(1, 'Steps to Finish')
+        self.render_plot_area(1, 'Steps to Finish', True)
 
     def settings_changed(self):
         self.render_agents_lines()
@@ -131,11 +131,6 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
         shortened_results = self.shorten_points(result_values_for_key,
                                                 int(self.setting_max_points),
                                                 bool_first_and_last_values)
-
-        print('----------------------------------------------------------')
-        print(result_values_for_key)
-        print('----------------------------------------------------------')
-        print(shortened_results)
 
         for episode in shortened_results:
             result = shortened_results[episode]
@@ -183,16 +178,19 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
         )
         self.plot_items[plot_area_i].addItem(line)
 
-    def render_plot_area(self, i, y_label):
+    def render_plot_area(self, i, y_label, invert_y=False):
         self.plot_areas[i] = pg.GraphicsView(background="w")
         self.plot_areas[i].setFrameStyle(QFrame.StyledPanel)
 
         self.plot_items[i] = pg.PlotItem(enableMenu=True)
-        self.plot_items[i].setMouseEnabled(True, False)
+        self.plot_items[i].setMouseEnabled(False, False)
         self.plot_items[i].hideButtons()
         self.plot_items[i].enableAutoScale()
         self.plot_items[i].enableAutoRange(x=True, y=True)
         self.plot_items[i].showGrid(x=True, y=True, alpha=0.1)
+
+        if invert_y:
+            self.plot_items[i].invertY()
 
         pen = QPen(self.palette().color(QPalette.Text))
 

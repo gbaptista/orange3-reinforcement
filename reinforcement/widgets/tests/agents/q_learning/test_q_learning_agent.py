@@ -6,7 +6,7 @@ def test_train_episode():
 
     q_learning_agent = QLearningAgent(enviroment_id)
 
-    assert q_learning_agent.name == 'QLearning Agent'
+    assert q_learning_agent.name == 'Q-learning Agent'
 
     result_keys = list(q_learning_agent.train_episode().keys())
 

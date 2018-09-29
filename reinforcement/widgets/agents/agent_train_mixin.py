@@ -14,6 +14,9 @@ class AgentTrainMixin():
     trained_episodes = 0
     initial_trained_episodes = 0
 
+    memory = None
+    initial_memory = None
+
     _progress = 0
 
     def train(self, episodes, seconds, ow_widget, ow_widget_on_finish):
@@ -113,6 +116,7 @@ class AgentTrainMixin():
 
         self.trained_episodes = self.initial_trained_episodes
         self.train_results = deepcopy(self.initial_train_results)
+        self.memory = deepcopy(self.initial_memory)
 
         while episode <= episodes or self.has_available_time(started_time,
                                                              seconds):

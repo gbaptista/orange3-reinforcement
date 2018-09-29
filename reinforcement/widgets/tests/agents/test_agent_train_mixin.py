@@ -13,6 +13,8 @@ def test_train():
     assert not generic_agent.initial_train_results
     assert generic_agent.trained_episodes == 0
     assert generic_agent.initial_trained_episodes == 0
+    assert not generic_agent.initial_memory
+    assert not generic_agent.memory
 
 
 def test_train_task():
