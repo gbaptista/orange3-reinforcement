@@ -1,4 +1,4 @@
-foldable pip install -U setuptools pip codecov
+foldable pip install -U pip
 
 cat requirements-dev.txt \
     requirements.txt |
