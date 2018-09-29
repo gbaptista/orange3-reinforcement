@@ -5,7 +5,7 @@ Reinforcement Learning
 [![Maintainability](https://api.codeclimate.com/v1/badges/ac6c644d8fb6681d9020/maintainability)](https://codeclimate.com/github/gbaptista/orange3-reinforcement/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ac6c644d8fb6681d9020/test_coverage)](https://codeclimate.com/github/gbaptista/orange3-reinforcement/test_coverage)
 
-[Orange3](https://github.com/openai/gym) Addon with [OpenAI Gym](https://gym.openai.com/) support.
+[Orange3](https://orange.biolab.si/) Addon with [OpenAI Gym](https://gym.openai.com/) support.
 
 _TODO:_
 - [ ] https://orange3.readthedocs.io/projects/orange-development/tutorial-cont.html
