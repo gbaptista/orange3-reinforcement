@@ -58,22 +58,16 @@ class ChartShortenerMixin:
         return (pages, per_page)
 
     @staticmethod
-    def from_to_index(current_point, points, per_page, first_and_last_values):
-        from_index = current_point
+    def from_to_index(from_index, points, per_page, first_and_last_values):
+        last_index_distance = 2 if first_and_last_values else 1
 
         if from_index >= points.size:
-            if first_and_last_values:
-                from_index = points.size - 2
-            else:
-                from_index = points.size - 1
+            from_index = points.size - last_index_distance
 
         to_index = from_index + per_page
 
         if to_index >= points.size:
-            if first_and_last_values:
-                to_index = points.size - 2
-            else:
-                to_index = points.size - 1
+            to_index = points.size - last_index_distance
 
         return (from_index, to_index)
 
