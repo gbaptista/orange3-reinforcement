@@ -16,7 +16,7 @@ class OWEnviroment(AutoApplyWidgetMixin, ReinforcementWidget):
     name = "Enviroment"
     description = "OpenAI Gym Enviroment."
     icon = "icons/enviroment_icon.svg"
-    priority = 60
+    priority = 50
     keywords = ["OpenAI Gym", "Enviroment"]
 
     setting_auto_apply = Setting(True)

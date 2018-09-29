@@ -10,7 +10,7 @@ class OWChecker(EnviromentInputWidget):
     name = "Checker"
     description = """Check Open IA Enviroment."""
     icon = "icons/checker_icon.svg"
-    priority = 80
+    priority = 60
     keywords = ["OpenAI Gym", "Enviroment", "Checker", "Debug"]
 
     enviroment = None

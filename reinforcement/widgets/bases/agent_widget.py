@@ -12,7 +12,7 @@ from .reinforcement_widget import ReinforcementWidget
 
 
 class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
-    priority = 80
+    priority = 70
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     agent = None

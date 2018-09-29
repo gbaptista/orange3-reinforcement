@@ -11,7 +11,7 @@ class OWEnviromentInfo(EnviromentInputWidget):
     description = """Display basic information about the enviroment, such
     as the number and type of observation space and action space."""
     icon = "icons/enviroment_info_icon.svg"
-    priority = 80
+    priority = 60
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     enviroment_id = None

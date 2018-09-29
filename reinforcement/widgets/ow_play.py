@@ -15,7 +15,7 @@ class OWPlay(SlidersWidgetMixin, ReinforcementWidget):
     name = "Play"
     description = """Play Open IA Enviroment with some Agent."""
     icon = "icons/play_icon.svg"
-    priority = 80
+    priority = 100
     keywords = ["OpenAI Gym", "Enviroment", "Play", "Agent"]
 
     # 0.04 seconds = 40 milliseconds
