@@ -14,7 +14,7 @@ class OWEnviroments(ReinforcementWidget):
     name = "Enviroments"
     description = "List of all available OpenAI Gym Enviroments."
     icon = "icons/enviroments_icon.svg"
-    priority = 60
+    priority = 40
     keywords = ["OpenAI Gym", "Enviroment"]
 
     class Outputs:

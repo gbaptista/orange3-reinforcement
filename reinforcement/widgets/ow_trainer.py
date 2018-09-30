@@ -26,6 +26,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     setting_auto_apply = Setting(False)
 
     setting_episodes = Setting(10)
+    setting_episodes_k = Setting(0)
     setting_seconds = Setting(5)
     setting_minutes = Setting(0)
     setting_hours = Setting(0)
@@ -34,6 +35,8 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     SLIDERS = [
         {'label': 'Episodes:', 'key': 'setting_episodes',
          'min': 0, 'max': 999, 'step': 10},
+        {'label': 'Episodes:', 'key': 'setting_episodes_k',
+         'min': 0, 'max': 100, 'step': 1, 'label_format': ' %dk'},
         {'label': 'Seconds:', 'key': 'setting_seconds',
          'min': 0, 'max': 60, 'step': 5},
         {'label': 'Minutes:', 'key': 'setting_minutes',
@@ -59,8 +62,12 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
         self.render_auto_apply_layout()
 
+    def episodes(self):
+        return (int(self.setting_episodes)
+                + (int(self.setting_episodes_k) * 1000))
+
     def apply(self):
-        self.agent.train(int(self.setting_episodes),
+        self.agent.train(self.episodes(),
                          self.seconds(),
                          self,
                          methodinvoke(self, "on_finish"))
@@ -91,7 +98,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
             self.enviroment_id = self.agent.enviroment_id
 
-            self.agent.train(int(self.setting_episodes),
+            self.agent.train(self.episodes(),
                              self.seconds(),
                              self,
                              methodinvoke(self, "on_finish"))

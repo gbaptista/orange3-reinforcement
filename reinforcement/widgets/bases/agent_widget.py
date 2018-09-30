@@ -12,7 +12,7 @@ from .reinforcement_widget import ReinforcementWidget
 
 
 class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
-    priority = 80
+    priority = 70
     keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
 
     agent = None
@@ -40,7 +40,12 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
             tooltip='The name will identify this model in other widgets',
             orientation=Qt.Horizontal, callback=self.settings_changed)
 
+        self.render_custom_layout()
+
         self.render_auto_apply_layout()
+
+    def render_custom_layout(self):
+        pass
 
     @Inputs.enviroment_id
     def set_enviroment_id(self, enviroment_id):
@@ -54,6 +59,9 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
 
         self.clear_outdated_warning()
 
+    def set_agent_settings(self):
+        pass
+
     def build_and_send_agent(self, enviroment_id, agent_class):
         if enviroment_id is not None:
             self.enviroment_id = enviroment_id
@@ -66,5 +74,7 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
                 self.setting_agent_name = self.agent.name
             else:
                 self.agent.name = self.setting_agent_name
+
+            self.set_agent_settings()
 
             self.Outputs.agent.send(self.agent)
