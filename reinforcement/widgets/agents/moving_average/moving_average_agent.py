@@ -8,7 +8,7 @@ from ..epsilon_greedy_mixin import EpsilonGreedyMixin
 class MovingAverageAgent(Agent, EpsilonGreedyMixin):
     name = 'Moving Average Agent'
 
-    REWARDS_SAMPLE = 1000
+    REWARDS_SAMPLE = 500
 
     def __init__(self, enviroment_id):
         super().__init__(enviroment_id)
