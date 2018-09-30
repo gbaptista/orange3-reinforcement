@@ -40,7 +40,12 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
             tooltip='The name will identify this model in other widgets',
             orientation=Qt.Horizontal, callback=self.settings_changed)
 
+        self.render_custom_layout()
+
         self.render_auto_apply_layout()
+
+    def render_custom_layout(self):
+        pass
 
     @Inputs.enviroment_id
     def set_enviroment_id(self, enviroment_id):
