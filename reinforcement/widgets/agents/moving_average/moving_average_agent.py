@@ -25,16 +25,17 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
 
         self.initial_memory = deepcopy(self.memory)
 
+    def _best_action(self):
+        return np.ndarray.argmax(self.memory['averages'])
+
     def train_action(self, state):
-        return self.play_action(state)
+        if self.should_explore():
+            return self.enviroment.action_space.sample()
+
+        return self._best_action()
 
     def play_action(self, _state):
-        if self.should_explore():
-            action = self.enviroment.action_space.sample()
-        else:
-            action = np.ndarray.argmax(self.memory['averages'])
-
-        return action
+        return self._best_action()
 
     def process_reward(self, _state, action, reward, _new_state):
         self.memory['rewards'][action] = np.append(
@@ -48,8 +49,8 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
             new_average = rewards_sum / rewards_size
             current_average = self.memory['averages'][action]
 
-            final_average = (new_average + current_average) / 2
+            updated_average = (new_average + current_average) / 2
 
-            self.memory['averages'][action] = final_average
+            self.memory['averages'][action] = updated_average
 
             self.memory['rewards'][action] = np.empty(0)

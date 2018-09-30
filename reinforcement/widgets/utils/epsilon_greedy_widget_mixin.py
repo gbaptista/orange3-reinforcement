@@ -4,6 +4,8 @@ from .sliders_widget_mixin import SlidersWidgetMixin
 
 
 class EpsilonGreedyWidgetMixin(SlidersWidgetMixin):
+    agent = None
+
     setting_epsilon_greedy = Setting(0.8)
     setting_epsilon_greedy_decay = Setting(0.000)
 
@@ -24,10 +26,11 @@ class EpsilonGreedyWidgetMixin(SlidersWidgetMixin):
 
         return True
 
+    def settings_changed(self):
+        pass
+
     def epsilon_greedy_settings_changed(self):
-        if self.agent is not None:
-            self.agent.epsilon_greedy = self.setting_epsilon_greedy
-            self.agent.epsilon_greedy_decay = self.setting_epsilon_greedy_decay
+        self.set_agent_epsilon_greedy_settings()
 
         self.settings_changed()
 

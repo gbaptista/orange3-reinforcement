@@ -13,6 +13,35 @@ def test_train_episode():
     assert result_keys == ['steps_to_finish', 'total_reward']
 
 
+def test_actions():
+    enviroment_id = 'FrozenLake-v0'
+
+    moving_average_agent = MovingAverageAgent(enviroment_id)
+
+    state = 0
+
+    number_of_actions = moving_average_agent.enviroment.action_space.n
+    possible_actions = range(0, number_of_actions)
+
+    assert moving_average_agent.train_action(state) in possible_actions
+    assert moving_average_agent.play_action(state) in possible_actions
+
+
+def test_process_reward():
+    enviroment_id = 'FrozenLake-v0'
+
+    moving_average_agent = MovingAverageAgent(enviroment_id)
+
+    state, action, reward, new_state = (None, 0, 10, None)
+
+    assert moving_average_agent.memory['averages'][action] == 0
+
+    for _i in range(0, moving_average_agent.REWARDS_SAMPLE):
+        moving_average_agent.process_reward(state, action, reward, new_state)
+
+    assert moving_average_agent.memory['averages'][action] == 5.0
+
+
 def test_train_task():
     enviroment_id = 'FrozenLake-v0'
 
