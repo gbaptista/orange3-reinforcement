@@ -49,7 +49,7 @@ class AgentTrainMixin():
 
         while not done:
             # pylint: disable=assignment-from-no-return
-            action = self.train_action(state)
+            action, action_info = self.train_action(state)
 
             new_state, reward, done, _info = self.enviroment.step(action)
 
@@ -61,7 +61,8 @@ class AgentTrainMixin():
             total_reward += reward
 
         return {'steps_to_finish': steps_to_finish,
-                'total_reward': total_reward}
+                'total_reward': total_reward,
+                'last_action_info': action_info}
 
     def process_reward(self, state, action, reward, new_state):
         pass

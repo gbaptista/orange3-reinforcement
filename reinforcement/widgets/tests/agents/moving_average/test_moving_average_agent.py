@@ -10,7 +10,9 @@ def test_train_episode():
 
     result_keys = list(moving_average_agent.train_episode().keys())
 
-    assert result_keys == ['steps_to_finish', 'total_reward']
+    assert result_keys == ['steps_to_finish',
+                           'total_reward',
+                           'last_action_info']
 
 
 def test_actions():
@@ -23,7 +25,11 @@ def test_actions():
     number_of_actions = moving_average_agent.enviroment.action_space.n
     possible_actions = range(0, number_of_actions)
 
-    assert moving_average_agent.train_action(state) in possible_actions
+    action, action_info = moving_average_agent.train_action(state)
+
+    assert action in possible_actions
+    assert action_info == {'epsilon_greedy': 0.0}
+
     assert moving_average_agent.play_action(state) in possible_actions
 
 

@@ -26,7 +26,7 @@ class QLearningAgent(Agent):
                          + np.random.rand(1, self.number_of_actions)
                          / 1000)
 
-        return np.ndarray.argmax(random_values)
+        return (np.ndarray.argmax(random_values), {})
 
     def process_reward(self, state, action, reward, new_state):
         new_state_values = self.memory['q_table'][new_state]

@@ -10,4 +10,6 @@ def test_train_episode():
 
     result_keys = list(q_learning_agent.train_episode().keys())
 
-    assert result_keys == ['steps_to_finish', 'total_reward']
+    assert result_keys == ['steps_to_finish',
+                           'total_reward',
+                           'last_action_info']

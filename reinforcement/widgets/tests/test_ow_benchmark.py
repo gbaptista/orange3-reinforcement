@@ -47,7 +47,9 @@ class TestOWBenchmark(WidgetTest):
 
         train_results_keys = list(input_agent.train_results[1].keys())
 
-        assert train_results_keys == ['steps_to_finish', 'total_reward']
+        assert train_results_keys == ['steps_to_finish',
+                                      'total_reward',
+                                      'last_action_info']
 
         result_line = self.widget.agent_result_to_line(input_agent,
                                                        'total_reward')

@@ -28,11 +28,19 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
     def _best_action(self):
         return np.ndarray.argmax(self.memory['averages'])
 
+    def _action_and_info(self, action):
+        if 'epsilon_greedy' in self.memory:
+            info = {'epsilon_greedy': self.memory['epsilon_greedy']}
+        else:
+            info = {'epsilon_greedy': self.epsilon_greedy}
+
+        return (action, info)
+
     def train_action(self, state):
         if self.should_explore():
-            return self.enviroment.action_space.sample()
+            return self._action_and_info(self.enviroment.action_space.sample())
 
-        return self._best_action()
+        return self._action_and_info(self._best_action())
 
     def play_action(self, _state):
         return self._best_action()

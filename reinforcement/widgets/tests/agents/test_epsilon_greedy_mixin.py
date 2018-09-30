@@ -30,3 +30,25 @@ def test_should_explore():
 
     for _i in range(0, 1000):
         assert generic_class.should_explore()
+
+
+def current_epsilon_greedy():
+    class GenericClass(EpsilonGreedyMixin):
+        pass
+
+    generic_class = GenericClass()
+
+    generic_class.epsilon_greedy = 0.0
+    generic_class.epsilon_greedy_decay = 0.1
+
+    assert generic_class.current_epsilon_greedy() == 0.0
+
+    for _i in range(0, 10):
+        generic_class.current_epsilon_greedy()
+
+    assert generic_class.current_epsilon_greedy() == 1.0
+
+    for _i in range(0, 1000):
+        generic_class.current_epsilon_greedy()
+
+    assert generic_class.current_epsilon_greedy() == 1.0
