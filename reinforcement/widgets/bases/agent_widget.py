@@ -59,6 +59,9 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
 
         self.clear_outdated_warning()
 
+    def set_agent_settings(self):
+        pass
+
     def build_and_send_agent(self, enviroment_id, agent_class):
         if enviroment_id is not None:
             self.enviroment_id = enviroment_id
@@ -71,5 +74,7 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
                 self.setting_agent_name = self.agent.name
             else:
                 self.agent.name = self.setting_agent_name
+
+            self.set_agent_settings()
 
             self.Outputs.agent.send(self.agent)
