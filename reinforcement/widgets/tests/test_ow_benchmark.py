@@ -29,8 +29,8 @@ class TestOWBenchmark(WidgetTest):
 
         assert len(self.widget.list_box.selectedItems()) == 2
 
-        assert len(self.widget.plot_items) == 2
-        assert len(self.widget.plot_areas) == 2
+        assert len(self.widget.plot_items) == 3
+        assert len(self.widget.plot_areas) == 3
 
     def test_agent_result_to_line(self):
         input_agent = RandomAgent('FrozenLake-v0')

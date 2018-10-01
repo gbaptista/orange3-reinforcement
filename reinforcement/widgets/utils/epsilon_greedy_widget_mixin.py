@@ -17,8 +17,8 @@ class EpsilonGreedyWidgetMixin(SlidersWidgetMixin):
              'callback': self.epsilon_greedy_settings_changed},
             {'label': 'Epsilon Greedy decay:',
              'key': 'setting_epsilon_greedy_decay',
-             'min': 0.000, 'max': 0.10, 'step': 0.001,
-             'label_format': ' %04.3f',
+             'min': 0.00000, 'max': 0.00100, 'step': 0.00001,
+             'label_format': ' %06.5f',
              'callback': self.epsilon_greedy_settings_changed}]
 
     def render_epsilon_greedy_sliders(self):
