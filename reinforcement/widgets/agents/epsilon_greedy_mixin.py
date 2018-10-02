@@ -18,7 +18,7 @@ class EpsilonGreedyMixin():
             return self.memory['epsilon_greedy']
 
         if self.memory['epsilon_greedy'] >= 1.0:
-            return self.memory['epsilon_greedy']
+            return 1.0
 
         self.memory['epsilon_greedy'] += self.epsilon_greedy_decay
 
