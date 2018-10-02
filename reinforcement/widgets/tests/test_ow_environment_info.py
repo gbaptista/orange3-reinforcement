@@ -7,6 +7,13 @@ class TestOWEnvironmentInfo(WidgetTest):
     def setUp(self):
         self.widget = self.create_widget(OWEnvironmentInfo)
 
+    def test_gym_registry_by_id(self):
+        input_environment_id = 'FrozenLake-v0'
+
+        registry = self.widget.gym_registry_by_id(input_environment_id)
+
+        assert registry.id == input_environment_id
+
     def test_input_signal(self):
         input_environment_id = 'FrozenLake-v0'
 

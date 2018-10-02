@@ -53,18 +53,29 @@ class OWEnvironmentInfo(EnvironmentInputWidget):
 
     def set_environment_id(self, environment_id):
         if environment_id is not None:
-            for registry in gym.envs.registry.all():
-                if registry.id == environment_id:
-                    environment = registry.make()
+            registry = self.gym_registry_by_id(environment_id)
+            environment = registry.make()
 
-                    self.environment_id = registry.id
+            self.build_environment_info(registry, environment)
 
-                    self.observation_space = environment.observation_space
-                    self.action_space = environment.action_space
-                    self.reward_range = environment.reward_range
+    @staticmethod
+    def gym_registry_by_id(environment_id):
+        gym_registry = None
 
-                    self.timestep_limit = registry.timestep_limit
-                    self.trials = registry.trials
-                    self.reward_threshold = registry.reward_threshold
+        for registry in gym.envs.registry.all():
+            if registry.id == environment_id:
+                gym_registry = registry
+                break
 
-                    break
+        return gym_registry
+
+    def build_environment_info(self, registry, environment):
+        self.environment_id = registry.id
+
+        self.observation_space = environment.observation_space
+        self.action_space = environment.action_space
+        self.reward_range = environment.reward_range
+
+        self.timestep_limit = registry.timestep_limit
+        self.trials = registry.trials
+        self.reward_threshold = registry.reward_threshold
