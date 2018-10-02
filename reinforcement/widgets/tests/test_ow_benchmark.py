@@ -32,6 +32,23 @@ class TestOWBenchmark(WidgetTest):
         assert len(self.widget.plot_items) == 3
         assert len(self.widget.plot_areas) == 3
 
+    def test_render_agents_lines(self):
+        input_agent = RandomAgent('FrozenLake-v0')
+
+        fake_result = {'steps_to_finish': 0,
+                       'total_reward': 0,
+                       'last_action_info': {'epsilon_greedy': 0}}
+
+        input_agent.train_results = [fake_result, fake_result]
+
+        self.send_signal("Agent", input_agent, [0])
+
+        self.widget.render_plot_views()
+
+        self.widget.render_agents_lines()
+
+        assert len(self.widget.plot_items) == 3
+
     def test_agent_result_to_line(self):
         input_agent = RandomAgent('FrozenLake-v0')
 
