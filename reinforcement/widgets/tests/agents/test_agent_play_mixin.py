@@ -4,9 +4,9 @@ from ...agents.agent_play_mixin import AgentPlayMixin
 
 
 class GenericAgent(AgentPlayMixin):
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    enviroment = gym.make('FrozenLake-v0')
+    environment = gym.make('FrozenLake-v0')
 
     def play_action(self, _state):
         return 0

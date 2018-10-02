@@ -26,13 +26,13 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
     description = """Compare Agents performance."""
     icon = "icons/benchmark_icon.svg"
     priority = 90
-    keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
+    keywords = ["OpenAI Gym", "Environment", "Info", "Details"]
 
     want_main_area = True
     resizing_enabled = True
 
     agent = None
-    enviroment_id = None
+    environment_id = None
 
     selected_agents = Setting([])
     setting_max_points = Setting(200)

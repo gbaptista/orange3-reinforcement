@@ -2,9 +2,9 @@ from ....agents.random.random_agent import RandomAgent
 
 
 def test_train_episode():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    random_agent = RandomAgent(enviroment_id)
+    random_agent = RandomAgent(environment_id)
 
     assert random_agent.name == 'Random Agent'
 

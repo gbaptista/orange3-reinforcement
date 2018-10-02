@@ -8,4 +8,4 @@ class RandomAgent(Agent):
         return (self.play_action(state), {})
 
     def play_action(self, _state):
-        return self.enviroment.action_space.sample()
+        return self.environment.action_space.sample()

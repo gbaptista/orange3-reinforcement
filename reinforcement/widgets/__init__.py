@@ -3,7 +3,7 @@ NAME = 'Reinforcement'
 DESCRIPTION = 'Reinforcement Learning with OpenAI Gym.'
 
 LONG_DESRIPTION = """
-Creation of Agents with Reinforcement Learning for OpenAI Gym Enviroments.
+Creation of Agents with Reinforcement Learning for OpenAI Gym Environments.
 
 """
 

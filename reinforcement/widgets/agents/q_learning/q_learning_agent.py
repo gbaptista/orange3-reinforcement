@@ -7,11 +7,11 @@ from ..agent import Agent
 class QLearningAgent(Agent):
     name = 'Q-learning Agent'
 
-    def __init__(self, enviroment_id):
-        super().__init__(enviroment_id)
+    def __init__(self, environment_id):
+        super().__init__(environment_id)
 
-        self.number_of_states = self.enviroment.observation_space.n
-        self.number_of_actions = self.enviroment.action_space.n
+        self.number_of_states = self.environment.observation_space.n
+        self.number_of_actions = self.environment.action_space.n
         self.gamma = 1
 
         self.memory = {}

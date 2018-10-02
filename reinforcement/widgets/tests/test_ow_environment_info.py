@@ -1,20 +1,20 @@
 from Orange.widgets.tests.base import WidgetTest
 
-from ..ow_enviroment_info import OWEnviromentInfo
+from ..ow_environment_info import OWEnvironmentInfo
 
 
-class TestOWEnviromentInfo(WidgetTest):
+class TestOWEnvironmentInfo(WidgetTest):
     def setUp(self):
-        self.widget = self.create_widget(OWEnviromentInfo)
+        self.widget = self.create_widget(OWEnvironmentInfo)
 
     def test_input_signal(self):
-        input_enviroment_id = 'FrozenLake-v0'
+        input_environment_id = 'FrozenLake-v0'
 
-        assert self.widget.enviroment_id == '?'
+        assert self.widget.environment_id == '?'
 
-        self.send_signal("Enviroment", input_enviroment_id)
+        self.send_signal("Environment", input_environment_id)
 
-        assert self.widget.enviroment_id == 'FrozenLake-v0'
+        assert self.widget.environment_id == 'FrozenLake-v0'
         assert str(self.widget.observation_space) == 'Discrete(16)'
         assert str(self.widget.action_space) == 'Discrete(4)'
         assert str(self.widget.reward_range) == '(0, 1)'

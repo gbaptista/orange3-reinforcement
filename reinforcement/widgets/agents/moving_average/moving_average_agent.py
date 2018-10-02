@@ -10,10 +10,10 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
 
     REWARDS_SAMPLE = 500
 
-    def __init__(self, enviroment_id):
-        super().__init__(enviroment_id)
+    def __init__(self, environment_id):
+        super().__init__(environment_id)
 
-        self.number_of_actions = self.enviroment.action_space.n
+        self.number_of_actions = self.environment.action_space.n
 
         self.memory = {}
 
@@ -38,7 +38,9 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
 
     def train_action(self, state):
         if self.should_explore():
-            return self._action_and_info(self.enviroment.action_space.sample())
+            return self._action_and_info(
+                self.environment.action_space.sample()
+            )
 
         return self._action_and_info(self._best_action())
 

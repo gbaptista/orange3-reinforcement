@@ -16,13 +16,13 @@ class AgentPlayMixin():
     def play(self):
         self._executor = ThreadExecutor()
 
-        self.enviroment = gym.make(self.enviroment_id)
+        self.environment = gym.make(self.environment_id)
 
         self.playing = True
 
-        state = self.enviroment.reset()
+        state = self.environment.reset()
 
-        self.enviroment.render()
+        self.environment.render()
 
         self._executor.submit(partial(self.play_task, state))
 
@@ -39,15 +39,15 @@ class AgentPlayMixin():
 
             sleep(self.episodes_interval)
 
-            _new_state, _reward, done, _info = self.enviroment.step(action)
+            _new_state, _reward, done, _info = self.environment.step(action)
 
-            self.enviroment.render()
+            self.environment.render()
 
             if done:
                 sleep(self.games_interval)
 
-                state = self.enviroment.reset()
+                state = self.environment.reset()
 
-                self.enviroment.render()
+                self.environment.render()
 
-        self.enviroment.close()
+        self.environment.close()

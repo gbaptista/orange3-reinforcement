@@ -21,7 +21,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     description = """Train some Agent."""
     icon = "icons/trainer_icon.svg"
     priority = 80
-    keywords = ["OpenAI Gym", "Enviroment", "Train", "Agent"]
+    keywords = ["OpenAI Gym", "Environment", "Train", "Agent"]
 
     setting_auto_apply = Setting(False)
 
@@ -56,7 +56,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         super().__init__()
 
         self.agent = None
-        self.enviroment_id = 'Not received.'
+        self.environment_id = 'Not received.'
 
         self.render_sliders(self.SLIDERS)
 
@@ -96,7 +96,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
             self.agent.initial_train_results = deepcopy(agent.train_results)
             self.agent.initial_memory = deepcopy(agent.memory)
 
-            self.enviroment_id = self.agent.enviroment_id
+            self.environment_id = self.agent.environment_id
 
             self.agent.train(self.episodes(),
                              self.seconds(),

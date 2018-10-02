@@ -2,9 +2,9 @@ from ....agents.moving_average.moving_average_agent import MovingAverageAgent
 
 
 def test_train_episode():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    moving_average_agent = MovingAverageAgent(enviroment_id)
+    moving_average_agent = MovingAverageAgent(environment_id)
 
     assert moving_average_agent.name == 'Moving Average Agent'
 
@@ -16,13 +16,13 @@ def test_train_episode():
 
 
 def test_actions():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    moving_average_agent = MovingAverageAgent(enviroment_id)
+    moving_average_agent = MovingAverageAgent(environment_id)
 
     state = 0
 
-    number_of_actions = moving_average_agent.enviroment.action_space.n
+    number_of_actions = moving_average_agent.environment.action_space.n
     possible_actions = range(0, number_of_actions)
 
     action, action_info = moving_average_agent.train_action(state)
@@ -34,9 +34,9 @@ def test_actions():
 
 
 def test_process_reward():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    moving_average_agent = MovingAverageAgent(enviroment_id)
+    moving_average_agent = MovingAverageAgent(environment_id)
 
     state, action, reward, new_state = (None, 0, 10, None)
 
@@ -49,9 +49,9 @@ def test_process_reward():
 
 
 def test_train_task():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    moving_average_agent = MovingAverageAgent(enviroment_id)
+    moving_average_agent = MovingAverageAgent(environment_id)
 
     def on_progress(_self, _progress):
         pass
