@@ -204,6 +204,16 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
 
         return {'x': x_points, 'y': y_points}
 
+    def rebuild_agents_list(self, channel_id, agent):
+        old_agents = copy(self.agents)
+
+        self.agents = []
+        for old_agent in old_agents:
+            if old_agent.channel_id != channel_id:
+                self.agents.append(old_agent)
+
+        self.agents.append(agent)
+
     @Inputs.agent
     def set_agent(self, agent, channel):
         if agent is not None:
@@ -211,14 +221,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
 
             agent.channel_id = channel_id
 
-            old_agents = copy(self.agents)
-
-            self.agents = []
-            for old_agent in old_agents:
-                if old_agent.channel_id != channel_id:
-                    self.agents.append(old_agent)
-
-            self.agents.append(agent)
+            self.rebuild_agents_list(channel_id, agent)
 
             self.agent_names = [agent.name for agent in self.agents]
             self.selected_agents = list(range(len(self.agents)))
