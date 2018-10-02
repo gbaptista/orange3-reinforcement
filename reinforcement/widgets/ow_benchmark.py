@@ -129,6 +129,12 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
     def settings_changed(self):
         self.render_agents_lines()
 
+    def set_agent_color(self, agent_index):
+        item = self.list_box.item(agent_index)
+
+        if item:
+            item.setIcon(colorpalette.ColorPixmap(self.colors[agent_index]))
+
     def render_agents_lines(self):
         self.plot_items[0].clear()
         self.plot_items[1].clear()
@@ -137,11 +143,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
         self.generate_colors(len(self.agents))
 
         for agent_index in range(len(self.agents)):
-            item = self.list_box.item(agent_index)
-            if item:
-                item.setIcon(colorpalette.ColorPixmap(
-                    self.colors[agent_index]
-                ))
+            self.set_agent_color(agent_index)
 
             has_train_results = bool(len(
                 self.agents[agent_index].train_results
@@ -151,18 +153,21 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
                 self.render_result_lines_for_agent(agent_index)
 
     def render_result_lines_for_agent(self, agent_index):
-        self.render_agent_result_line(agent_index, 0, 'total_reward')
-        self.render_agent_result_line(agent_index, 1, 'steps_to_finish')
+        self.render_agent_result_line(agent_index, 0, ('total_reward', None))
+
+        self.render_agent_result_line(agent_index, 1,
+                                      ('steps_to_finish', None))
 
         result_sample = self.agents[agent_index].train_results[0]
 
         if 'epsilon_greedy' in result_sample['last_action_info']:
             self.render_agent_result_line(agent_index, 1,
-                                          'last_action_info',
-                                          'epsilon_greedy')
+                                          ('last_action_info',
+                                           'epsilon_greedy'))
 
-    def render_agent_result_line(self, agent_index,
-                                 line_index, key, sub_key=None):
+    def render_agent_result_line(self, agent_index, line_index, keys):
+        key, sub_key = keys
+
         result_line = self.agent_result_to_line(self.agents[agent_index],
                                                 key, sub_key)
 
