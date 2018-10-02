@@ -136,35 +136,38 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
 
         self.generate_colors(len(self.agents))
 
-        for i in range(len(self.agents)):
-            item = self.list_box.item(i)
+        for agent_index in range(len(self.agents)):
+            item = self.list_box.item(agent_index)
             if item:
-                item.setIcon(colorpalette.ColorPixmap(self.colors[i]))
+                item.setIcon(colorpalette.ColorPixmap(
+                    self.colors[agent_index]
+                ))
 
-            has_train_results = bool(len(self.agents[i].train_results))
+            has_train_results = bool(len(
+                self.agents[agent_index].train_results
+            ))
 
-            if i in self.selected_agents and has_train_results:
-                result_line = self.agent_result_to_line(self.agents[i],
-                                                        'total_reward')
+            if agent_index in self.selected_agents and has_train_results:
+                self.render_result_lines_for_agent(agent_index)
 
-                self.add_line(0, i, {'x': result_line['x'],
-                                     'y': result_line['y']})
+    def render_result_lines_for_agent(self, agent_index):
+        self.render_agent_result_line(agent_index, 0, 'total_reward')
+        self.render_agent_result_line(agent_index, 1, 'steps_to_finish')
 
-                result_line = self.agent_result_to_line(self.agents[i],
-                                                        'steps_to_finish')
+        result_sample = self.agents[agent_index].train_results[0]
 
-                self.add_line(1, i, {'x': result_line['x'],
-                                     'y': result_line['y']})
+        if 'epsilon_greedy' in result_sample['last_action_info']:
+            self.render_agent_result_line(agent_index, 1,
+                                          'last_action_info',
+                                          'epsilon_greedy')
 
-                result_sample = self.agents[i].train_results[0]
+    def render_agent_result_line(self, agent_index,
+                                 line_index, key, sub_key=None):
+        result_line = self.agent_result_to_line(self.agents[agent_index],
+                                                key, sub_key)
 
-                if 'epsilon_greedy' in result_sample['last_action_info']:
-                    result_line = self.agent_result_to_line(self.agents[i],
-                                                            'last_action_info',
-                                                            'epsilon_greedy')
-
-                    self.add_line(2, i, {'x': result_line['x'],
-                                         'y': result_line['y']})
+        self.add_line(line_index, agent_index, {'x': result_line['x'],
+                                                'y': result_line['y']})
 
     def agent_result_to_line(self, agent, key, sub_key=None):
         x_points = np.empty(0)
