@@ -161,7 +161,7 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
         result_sample = self.agents[agent_index].train_results[0]
 
         if 'epsilon_greedy' in result_sample['last_action_info']:
-            self.render_agent_result_line(agent_index, 1,
+            self.render_agent_result_line(agent_index, 2,
                                           ('last_action_info',
                                            'epsilon_greedy'))
 
