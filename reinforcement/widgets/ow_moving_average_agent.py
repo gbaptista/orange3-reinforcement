@@ -15,8 +15,8 @@ class OWMovingAverageAgent(AgentWidget,
     def render_custom_layout(self):
         self.render_epsilon_greedy_sliders()
 
-    def set_enviroment_id(self, enviroment_id):
-        self.build_and_send_agent(enviroment_id, MovingAverageAgent)
+    def set_environment_id(self, environment_id):
+        self.build_and_send_agent(environment_id, MovingAverageAgent)
 
     def set_agent_settings(self):
         self.set_agent_epsilon_greedy_settings()

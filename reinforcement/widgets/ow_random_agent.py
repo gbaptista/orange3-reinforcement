@@ -9,5 +9,5 @@ class OWRandomAgent(AgentWidget):
     description = """Random Agent."""
     icon = "icons/random_agent_icon.svg"
 
-    def set_enviroment_id(self, enviroment_id):
-        self.build_and_send_agent(enviroment_id, RandomAgent)
+    def set_environment_id(self, environment_id):
+        self.build_and_send_agent(environment_id, RandomAgent)

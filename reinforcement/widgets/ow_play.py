@@ -13,10 +13,10 @@ from .bases.reinforcement_widget import ReinforcementWidget
 class OWPlay(SlidersWidgetMixin, ReinforcementWidget):
     id = "orange.widgets.reinforcement.play"
     name = "Play"
-    description = """Play Open IA Enviroment with some Agent."""
+    description = """Play Open IA Environment with some Agent."""
     icon = "icons/play_icon.svg"
     priority = 100
-    keywords = ["OpenAI Gym", "Enviroment", "Play", "Agent"]
+    keywords = ["OpenAI Gym", "Environment", "Play", "Agent"]
 
     # 0.04 seconds = 40 milliseconds
     setting_episodes_interval = Setting(40)
@@ -31,11 +31,11 @@ class OWPlay(SlidersWidgetMixin, ReinforcementWidget):
         super().__init__()
 
         self.agent = None
-        self.enviroment_id = 'Not received.'
+        self.environment_id = 'Not received.'
 
         gui.separator(self.controlArea, 0, 6)
 
-        gui.label(self.controlArea, self, "%%(%s)s" % 'enviroment_id')
+        gui.label(self.controlArea, self, "%%(%s)s" % 'environment_id')
 
         self.render_sliders(self.sliders())
 
@@ -72,6 +72,6 @@ class OWPlay(SlidersWidgetMixin, ReinforcementWidget):
     def set_agent(self, agent):
         if agent is not None:
             self.agent = agent
-            self.enviroment_id = self.agent.enviroment_id
+            self.environment_id = self.agent.environment_id
 
             self.settings_changed()

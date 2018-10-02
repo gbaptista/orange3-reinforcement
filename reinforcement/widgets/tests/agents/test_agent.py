@@ -2,12 +2,12 @@ from ...agents.agent import Agent
 
 
 def test_prepare_to_pickle():
-    enviroment_id = 'FrozenLake-v0'
+    environment_id = 'FrozenLake-v0'
 
-    agent = Agent(enviroment_id)
+    agent = Agent(environment_id)
 
-    assert agent.enviroment
-    assert agent.enviroment_id == enviroment_id
+    assert agent.environment
+    assert agent.environment_id == environment_id
 
     agent.ow_widget = True
     agent.ow_widget_on_finish = True

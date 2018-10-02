@@ -2,41 +2,41 @@ import gym
 
 from Orange.widgets import gui
 
-from .bases.enviroment_input_widget import EnviromentInputWidget
+from .bases.environment_input_widget import EnvironmentInputWidget
 
 
-class OWChecker(EnviromentInputWidget):
+class OWChecker(EnvironmentInputWidget):
     id = "orange.widgets.reinforcement.checker"
     name = "Checker"
-    description = """Check Open IA Enviroment."""
+    description = """Check Open IA Environment."""
     icon = "icons/checker_icon.svg"
     priority = 60
-    keywords = ["OpenAI Gym", "Enviroment", "Checker", "Debug"]
+    keywords = ["OpenAI Gym", "Environment", "Checker", "Debug"]
 
-    enviroment = None
+    environment = None
 
     def __init__(self):
         super().__init__()
 
-        self.set_enviroment_id(None)
+        self.set_environment_id(None)
 
-        gui.label(self.controlArea, self, "%%(%s)s" % 'enviroment_id')
+        gui.label(self.controlArea, self, "%%(%s)s" % 'environment_id')
 
         gui.button(self.controlArea, self, "Open", callback=self.open)
         gui.button(self.controlArea, self, "Close", callback=self.close)
 
     def close(self):
-        self.enviroment.close()
+        self.environment.close()
 
     def open(self):
-        if self.enviroment:
-            self.enviroment.close()
+        if self.environment:
+            self.environment.close()
 
-        self.enviroment = gym.make(self.enviroment_id)
-        self.enviroment.render()
+        self.environment = gym.make(self.environment_id)
+        self.environment.render()
 
-    def set_enviroment_id(self, enviroment_id):
-        self.enviroment_id = 'Not found.'
+    def set_environment_id(self, environment_id):
+        self.environment_id = 'Not found.'
 
-        if enviroment_id is not None:
-            self.enviroment_id = enviroment_id
+        if environment_id is not None:
+            self.environment_id = environment_id

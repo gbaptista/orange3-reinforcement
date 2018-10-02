@@ -23,9 +23,9 @@ class TestAutoApplyWidgetMixin(WidgetTest):
         assert len(self.widget.epsilon_greedy_sliders()) == 2
 
     def test_set_agent_epsilon_greedy_settings(self):
-        enviroment_id = 'FrozenLake-v0'
+        environment_id = 'FrozenLake-v0'
 
-        self.widget.agent = MovingAverageAgent(enviroment_id)
+        self.widget.agent = MovingAverageAgent(environment_id)
 
         self.widget.setting_epsilon_greedy = 0.8
         self.widget.setting_epsilon_greedy_decay = 0.01

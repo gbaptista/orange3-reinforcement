@@ -13,15 +13,15 @@ from .reinforcement_widget import ReinforcementWidget
 
 class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     priority = 70
-    keywords = ["OpenAI Gym", "Enviroment", "Info", "Details"]
+    keywords = ["OpenAI Gym", "Environment", "Info", "Details"]
 
     agent = None
-    enviroment_id = None
+    environment_id = None
 
     setting_agent_name = Setting('')
 
     class Inputs:
-        enviroment_id = Input("Enviroment", str)
+        environment_id = Input("Environment", str)
 
     class Outputs:
         agent = Output("Agent", Agent)
@@ -47,8 +47,8 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     def render_custom_layout(self):
         pass
 
-    @Inputs.enviroment_id
-    def set_enviroment_id(self, enviroment_id):
+    @Inputs.environment_id
+    def set_environment_id(self, environment_id):
         pass
 
     def apply(self):
@@ -62,13 +62,13 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     def set_agent_settings(self):
         pass
 
-    def build_and_send_agent(self, enviroment_id, agent_class):
-        if enviroment_id is not None:
-            self.enviroment_id = enviroment_id
+    def build_and_send_agent(self, environment_id, agent_class):
+        if environment_id is not None:
+            self.environment_id = environment_id
 
-            self.agent = agent_class(enviroment_id)
+            self.agent = agent_class(environment_id)
 
-            self.agent.name += ' (' + enviroment_id + ')'
+            self.agent.name += ' (' + environment_id + ')'
 
             if self.setting_agent_name == self.name:
                 self.setting_agent_name = self.agent.name
