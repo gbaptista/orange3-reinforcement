@@ -3,7 +3,7 @@ from Orange.widgets.widget import OWWidget
 from Orange.widgets.tests.base import WidgetTest
 
 from ...utils.epsilon_greedy_widget_mixin import EpsilonGreedyWidgetMixin
-from ...agents.moving_average.moving_average_agent import MovingAverageAgent
+from ...agents.mean.mean_agent import MeanAgent
 
 
 class TestAutoApplyWidgetMixin(WidgetTest):
@@ -25,7 +25,7 @@ class TestAutoApplyWidgetMixin(WidgetTest):
     def test_set_agent_epsilon_greedy_settings(self):
         environment_id = 'FrozenLake-v0'
 
-        self.widget.agent = MovingAverageAgent(environment_id)
+        self.widget.agent = MeanAgent(environment_id)
 
         self.widget.setting_epsilon_greedy = 0.8
         self.widget.setting_epsilon_greedy_decay = 0.01

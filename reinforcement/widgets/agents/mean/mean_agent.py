@@ -5,10 +5,8 @@ from ..agent import Agent
 from ..epsilon_greedy_mixin import EpsilonGreedyMixin
 
 
-class MovingAverageAgent(Agent, EpsilonGreedyMixin):
-    name = 'Moving Average Agent'
-
-    REWARDS_SAMPLE = 500
+class MeanAgent(Agent, EpsilonGreedyMixin):
+    name = 'Mean Agent'
 
     def __init__(self, environment_id):
         super().__init__(environment_id)
@@ -17,16 +15,13 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
 
         self.memory = {}
 
-        self.memory['rewards'] = {}
-        self.memory['averages'] = np.zeros(self.number_of_actions)
-
-        for action in range(0, self.number_of_actions):
-            self.memory['rewards'][action] = np.empty(0)
+        self.memory['rewards_mean'] = np.zeros(self.number_of_actions)
+        self.memory['rewards_count'] = np.zeros(self.number_of_actions)
 
         self.initial_memory = deepcopy(self.memory)
 
     def _best_action(self):
-        return np.ndarray.argmax(self.memory['averages'])
+        return np.ndarray.argmax(self.memory['rewards_mean'])
 
     def _action_and_info(self, action):
         if 'epsilon_greedy' in self.memory:
@@ -48,19 +43,10 @@ class MovingAverageAgent(Agent, EpsilonGreedyMixin):
         return self._best_action()
 
     def process_reward(self, _state, action, reward, _new_state):
-        self.memory['rewards'][action] = np.append(
-            self.memory['rewards'][action], reward
+        self.memory['rewards_count'][action] += 1
+
+        self.memory['rewards_mean'][action] = (
+            (1 - 1.0 / self.memory['rewards_count'][action])
+            * self.memory['rewards_mean'][action] + 1.0
+            / self.memory['rewards_count'][action] * reward
         )
-
-        if self.memory['rewards'][action].size >= self.REWARDS_SAMPLE:
-            rewards_size = self.memory['rewards'][action].size
-            rewards_sum = np.sum(self.memory['rewards'][action])
-
-            new_average = rewards_sum / rewards_size
-            current_average = self.memory['averages'][action]
-
-            updated_average = (new_average + current_average) / 2
-
-            self.memory['averages'][action] = updated_average
-
-            self.memory['rewards'][action] = np.empty(0)

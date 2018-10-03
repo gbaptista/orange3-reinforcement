@@ -20,10 +20,12 @@ class TestAgentWidget(WidgetTest):
 
         assert self.get_output("Agent") is None
 
+        self.widget.setting_agent_name = None
+
         self.widget.build_and_send_agent('FrozenLake-v0', RandomAgent)
 
         assert self.widget.agent is not None
 
-        assert self.widget.agent.name == 'Random Agent (FrozenLake-v0)'
+        assert self.widget.agent.name == 'Random Agent'
 
         assert self.get_output("Agent") is not None
