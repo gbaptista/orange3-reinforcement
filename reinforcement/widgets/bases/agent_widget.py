@@ -18,7 +18,7 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     agent = None
     environment_id = None
 
-    setting_agent_name = Setting('')
+    setting_agent_name = Setting(None)
 
     class Inputs:
         environment_id = Input("Environment", str)
@@ -29,7 +29,8 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
     def __init__(self):
         super().__init__()
 
-        self.setting_agent_name = self.name
+        if not self.setting_agent_name:
+            self.setting_agent_name = self.name
 
         self.apply()
         self.render_layout()
@@ -66,14 +67,7 @@ class AgentWidget(AutoApplyWidgetMixin, ReinforcementWidget):
         if environment_id is not None:
             self.environment_id = environment_id
 
-            self.agent = agent_class(environment_id)
-
-            self.agent.name += ' (' + environment_id + ')'
-
-            if self.setting_agent_name == self.name:
-                self.setting_agent_name = self.agent.name
-            else:
-                self.agent.name = self.setting_agent_name
+            self.agent = agent_class(self.environment_id)
 
             self.set_agent_settings()
 

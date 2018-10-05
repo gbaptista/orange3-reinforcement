@@ -110,10 +110,6 @@ class OWBenchmark(ColorsWidgetMixin, ReinforcementWidget,
     def render_plot_views(self):
         box = gui.widgetBox(self.controlArea, box=True)
 
-        self.settings_plot_total_reward = True
-        self.settings_plot_steps_to_finish = True
-        self.settings_plot_epsilon_greedy = True
-
         for i, plot_view in enumerate(self.PLOT_VIEWS):
             gui.checkBox(box, self,
                          plot_view['key'],

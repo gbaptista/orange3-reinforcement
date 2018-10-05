@@ -1,21 +1,21 @@
 from .bases.agent_widget import AgentWidget
 
-from .agents.q_learning.q_learning_agent import QLearningAgent
+from .agents.mean.mean_agent import MeanAgent
 
 from .utils.epsilon_greedy_widget_mixin import EpsilonGreedyWidgetMixin
 
 
-class OWQLearningAgent(AgentWidget, EpsilonGreedyWidgetMixin):
-    id = "orange.widgets.reinforcement.q_learning_agent"
-    name = "Q-learning Agent"
-    description = """Q-learning Agent."""
-    icon = "icons/q_learning_agent_icon.svg"
+class OWMeanAgent(AgentWidget, EpsilonGreedyWidgetMixin):
+    id = "orange.widgets.reinforcement.mean_agent"
+    name = "Mean Agent"
+    description = """Mean Agent."""
+    icon = "icons/men_agent_icon.svg"
 
     def render_custom_layout(self):
         self.render_epsilon_greedy_sliders()
 
     def set_environment_id(self, environment_id):
-        self.build_and_send_agent(environment_id, QLearningAgent)
+        self.build_and_send_agent(environment_id, MeanAgent)
 
     def set_agent_settings(self):
         self.set_agent_epsilon_greedy_settings()

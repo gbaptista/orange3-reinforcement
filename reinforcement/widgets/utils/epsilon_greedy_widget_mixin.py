@@ -6,13 +6,13 @@ from .sliders_widget_mixin import SlidersWidgetMixin
 class EpsilonGreedyWidgetMixin(SlidersWidgetMixin):
     agent = None
 
-    setting_epsilon_greedy = Setting(0.8)
-    setting_epsilon_greedy_decay = Setting(0.000)
+    setting_epsilon_greedy = Setting(0.1)
+    setting_epsilon_greedy_decay = Setting(0.00001)
 
     def epsilon_greedy_sliders(self):
         return [
             {'label': 'Epsilon greedy:', 'key': 'setting_epsilon_greedy',
-             'min': 0.00, 'max': 1.00, 'step': 0.05,
+             'min': 0.00, 'max': 1.00, 'step': 0.01,
              'label_format': ' %03.2f',
              'callback': self.epsilon_greedy_settings_changed},
             {'label': 'Epsilon greedy decay:',
