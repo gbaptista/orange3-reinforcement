@@ -20,27 +20,19 @@ class MeanAgent(Agent, EpsilonGreedyMixin):
 
         self.initial_memory = deepcopy(self.memory)
 
-    def _best_action(self):
+    def _best_action(self, _state):
         return np.ndarray.argmax(self.memory['rewards_mean'])
-
-    def _action_and_info(self, action):
-        if 'epsilon_greedy' in self.memory:
-            info = {'epsilon_greedy': self.memory['epsilon_greedy']}
-        else:
-            info = {'epsilon_greedy': self.epsilon_greedy}
-
-        return (action, info)
 
     def train_action(self, state):
         if self.should_explore():
-            return self._action_and_info(
+            return self.action_with_epsilon_greedy_info(
                 self.environment.action_space.sample()
             )
 
-        return self._action_and_info(self._best_action())
+        return self.action_with_epsilon_greedy_info(self._best_action(state))
 
-    def play_action(self, _state):
-        return self._best_action()
+    def play_action(self, state):
+        return self._best_action(state)
 
     def process_reward(self, _state, action, reward, _new_state):
         self.memory['rewards_count'][action] += 1
