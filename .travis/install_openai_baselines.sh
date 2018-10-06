@@ -15,3 +15,5 @@ fi
 cd $OPENAI_BASELINES/baselines-master
 
 foldable pip install -e .
+
+cd $TRAVIS_BUILD_DIR
