@@ -1,5 +1,6 @@
 foldable pip install -U pip
 
+foldable sudo apt-get install -y libopenmpi-dev
 foldable sudo apt-get install -y python-mpi4py
 
 cat requirements-dev.txt \
