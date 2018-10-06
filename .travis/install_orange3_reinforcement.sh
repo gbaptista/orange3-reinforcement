@@ -1,5 +1,7 @@
 foldable pip install -U pip
 
+foldable sudo apt-get install -y python-mpi4py
+
 cat requirements-dev.txt \
     requirements.txt |
     while read dep; do
