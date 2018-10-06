@@ -4,3 +4,5 @@ PyQt5>=5.11.2
 gym>=0.10.5
 numpy>=1.15.2
 pyqtgraph>=0.10.0
+tensorflow>=1.11.0
+baselines>=0.1.5

@@ -8,6 +8,7 @@ cache:
   ccache: true
   directories:
     - $TRAVIS_BUILD_DIR/pyqt
+    - $TRAVIS_BUILD_DIR/openai_baselines
 
 env:
   global:

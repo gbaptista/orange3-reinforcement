@@ -1,19 +1,19 @@
 from Orange.widgets.tests.base import WidgetTest
 
-from ..agents.random.random_agent import RandomAgent
+from ..agents.openai.baselines.dqn.dqn_agent import DQNAgent
 
-from ..ow_random_agent import OWRandomAgent
+from ..ow_dqn_agent import OWDQNAgent
 
 from ._test_helpers.agent_output_signal_mixin import AgentOutputSignalMixin
 
 
-class TestOWRandomAgent(AgentOutputSignalMixin, WidgetTest):
+class TestOWDQNAgent(AgentOutputSignalMixin, WidgetTest):
     def setUp(self):
-        self.widget = self.create_widget(OWRandomAgent)
+        self.widget = self.create_widget(OWDQNAgent)
 
     def test_output_signal(self):
         assert not self.get_output("Agent")
 
-        self.agent_output_signal(RandomAgent)
+        self.agent_output_signal(DQNAgent)
 
         assert self.get_output("Agent")

@@ -12,4 +12,8 @@ class TestOWQLearningAgent(AgentOutputSignalMixin, WidgetTest):
         self.widget = self.create_widget(OWQLearningAgent)
 
     def test_output_signal(self):
+        assert not self.get_output("Agent")
+
         self.agent_output_signal(QLearningAgent)
+
+        assert self.get_output("Agent")
