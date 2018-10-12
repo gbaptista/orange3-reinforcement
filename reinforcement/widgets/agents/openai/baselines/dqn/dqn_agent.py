@@ -1,21 +1,29 @@
-from ..openai_agent import OpenAIAgent
 from baselines import deepq
+
+from ..openai_agent import OpenAIAgent
 
 
 class DQNAgent(OpenAIAgent):
     name = 'DQN Agent (OpenAI Baselines)'
 
-    def callback(self, lcl, _glb):
-        # TODO: update orange progress
+    def learn_iteration_callback(self, lcl, _glb):
+        if(self.should_keep_learning()):
+            # TODO:
+            # is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
+            # result = self.train_episode()
+            # self.train_results = np.append(self.train_results, result)
 
-        # stop training if reward exceeds 199
-        is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
-        return is_solved
+            self.update_progress()
 
-    def train(self, episodes, seconds, ow_widget, ow_widget_on_finish):
-        total_timesteps = 100000
+            return False
+        else:
+            self.on_finish(self)
 
-        total_timesteps = episodes
+            return True
+
+    def start_learning(self):
+        total_timesteps = int((self.episodes + self.seconds)
+                               * 2)
 
         deepq.learn(
             self.environment,
@@ -26,5 +34,5 @@ class DQNAgent(OpenAIAgent):
             exploration_fraction=0.1,
             exploration_final_eps=0.02,
             print_freq=10,
-            callback=self.callback
+            callback=self.learn_iteration_callback
         )

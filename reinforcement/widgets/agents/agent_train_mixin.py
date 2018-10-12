@@ -90,7 +90,7 @@ class AgentTrainMixin():
         return self.spend_seconds(started_time) < seconds
 
     def current_progress(self, started_time, seconds,
-                         episodes, interations):
+                         episodes, iterations):
         progress = self._progress
 
         estimated_seconds = seconds
@@ -98,8 +98,8 @@ class AgentTrainMixin():
         spend_seconds = self.spend_seconds(started_time)
 
         if episodes > 0 and spend_seconds > 0:
-            interation_mean_seconds = spend_seconds / interations
-            estimated_seconds += episodes * interation_mean_seconds
+            iteration_mean_seconds = spend_seconds / iterations
+            estimated_seconds += episodes * iteration_mean_seconds
 
         if estimated_seconds > 0.0:
             progress = (spend_seconds/estimated_seconds) * 100
@@ -109,33 +109,58 @@ class AgentTrainMixin():
 
         return progress
 
-    def train_task(self, episodes, seconds, on_progress, on_finish):
-        episode = 1
-        interations = 0
+    def update_progress(self):
+        self.iterations += 1
 
-        started_time = time.time()
+        self.on_progress(self,
+                         self.current_progress(self.started_time,
+                                               self.seconds,
+                                               self.episodes,
+                                               self.iterations))
 
-        self.trained_episodes = self.initial_trained_episodes
-        self.train_results = deepcopy(self.initial_train_results)
-        self.memory = deepcopy(self.initial_memory)
+        self.trained_episodes += 1
 
-        while episode <= episodes or self.has_available_time(started_time,
-                                                             seconds):
-            interations += 1
+        if not self.has_available_time(self.started_time, self.seconds):
+            self.episode += 1
 
-            on_progress(self,
-                        self.current_progress(started_time,
-                                              seconds, episodes,
-                                              interations))
+    def should_keep_learning(self):
+        return (self.episode <= self.episodes
+                or self.has_available_time(self.started_time,
+                                           self.seconds))
 
-            self.trained_episodes += 1
-
+    def learn_iteration_callback(self):
+        if(self.should_keep_learning()):
             # pylint: disable=assignment-from-no-return
             result = self.train_episode()
 
             self.train_results = np.append(self.train_results, result)
 
-            if not self.has_available_time(started_time, seconds):
-                episode += 1
+            self.update_progress()
 
-        on_finish(self)
+            return False
+        else:
+            self.on_finish(self)
+
+            return True
+
+    def start_learning(self):
+        while(not self.learn_iteration_callback()):
+            continue
+
+    def train_task(self, episodes, seconds, on_progress, on_finish):
+        self.episodes = episodes
+        self.seconds = seconds
+
+        self.on_progress = on_progress
+        self.on_finish = on_finish
+
+        self.episode = 1
+        self.iterations = 0
+
+        self.started_time = time.time()
+
+        self.trained_episodes = self.initial_trained_episodes
+        self.train_results = deepcopy(self.initial_train_results)
+        self.memory = deepcopy(self.initial_memory)
+
+        self.start_learning()
