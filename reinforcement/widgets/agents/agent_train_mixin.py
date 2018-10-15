@@ -19,8 +19,9 @@ class AgentTrainMixin():
 
     _progress = 0
 
-    def train(self, episodes, seconds, ow_widget, ow_widget_on_finish):
+    def train(self, episodes, seconds, ow_widget, ow_widget_on_progress, ow_widget_on_finish):
         self.ow_widget = ow_widget
+        self.ow_widget_on_progress = ow_widget_on_progress
         self.ow_widget_on_finish = ow_widget_on_finish
 
         self._executor = ThreadExecutor()
@@ -43,7 +44,7 @@ class AgentTrainMixin():
         done = False
 
         steps_to_finish = 0
-        total_reward = 0
+        total_reward = 0.0
 
         state = self.environment.reset()
 
@@ -72,6 +73,14 @@ class AgentTrainMixin():
 
     def on_progress(self, progress):
         progress = int(progress)
+
+        time_since_last_report = time.time() - self.last_reported_update
+
+        # real time report: ~ 0.5 seconds
+        if time_since_last_report >= 0.5:
+            self.ow_widget_on_progress()
+            self.last_reported_update = time.time()
+        
         # Performance reasons: only update the
         # progress when is realy necessary.
         if progress != self._progress:
@@ -112,11 +121,11 @@ class AgentTrainMixin():
     def update_progress(self):
         self.iterations += 1
 
-        self.on_progress(self,
-                         self.current_progress(self.started_time,
-                                               self.seconds,
-                                               self.episodes,
-                                               self.iterations))
+        self.task_on_progress(self,
+                              self.current_progress(self.started_time,
+                                                    self.seconds,
+                                                    self.episodes,
+                                                    self.iterations))
 
         self.trained_episodes += 1
 
@@ -127,7 +136,7 @@ class AgentTrainMixin():
         return (self.episode <= self.episodes
                 or self.has_available_time(self.started_time,
                                            self.seconds))
-
+    
     def learn_iteration_callback(self):
         if(self.should_keep_learning()):
             # pylint: disable=assignment-from-no-return
@@ -139,7 +148,7 @@ class AgentTrainMixin():
 
             return False
         else:
-            self.on_finish(self)
+            self.task_on_finish(self)
 
             return True
 
@@ -151,13 +160,15 @@ class AgentTrainMixin():
         self.episodes = episodes
         self.seconds = seconds
 
-        self.on_progress = on_progress
-        self.on_finish = on_finish
+        self.task_on_progress = on_progress
+        self.task_on_finish = on_finish
 
         self.episode = 1
         self.iterations = 0
 
         self.started_time = time.time()
+
+        self.last_reported_update = time.time()
 
         self.trained_episodes = self.initial_trained_episodes
         self.train_results = deepcopy(self.initial_train_results)

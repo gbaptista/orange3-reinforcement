@@ -51,6 +51,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
     class Outputs:
         agent = Output("Agent", Agent)
+        real_time_agent = Output("Real-time Agent", Agent)
 
     def __init__(self):
         super().__init__()
@@ -70,6 +71,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         self.agent.train(self.episodes(),
                          self.seconds(),
                          self,
+                         methodinvoke(self, "on_progress"),
                          methodinvoke(self, "on_finish"))
 
     def seconds(self):
@@ -84,6 +86,11 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     @pyqtSlot()
     def on_finish(self):
         self.Outputs.agent.send(self.agent)
+        self.Outputs.real_time_agent.send(self.agent)
+
+    @pyqtSlot()
+    def on_progress(self):
+        self.Outputs.real_time_agent.send(self.agent)
 
     @Inputs.agent
     def set_agent(self, agent):
@@ -101,4 +108,5 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
             self.agent.train(self.episodes(),
                              self.seconds(),
                              self,
+                             methodinvoke(self, "on_progress"),
                              methodinvoke(self, "on_finish"))

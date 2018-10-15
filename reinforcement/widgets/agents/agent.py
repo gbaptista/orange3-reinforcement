@@ -11,6 +11,9 @@ class Agent(AgentTrainMixin, AgentPlayMixin, Reprable):
     environment_id = None
     environment = None
 
+    memory = None
+    initial_memory = None
+
     ow_widget = None
     ow_widget_on_finish = None
 
@@ -19,8 +22,12 @@ class Agent(AgentTrainMixin, AgentPlayMixin, Reprable):
     def __init__(self, environment_id):
         self.environment_id = environment_id
         self.environment = gym.make(self.environment_id)
+
         self.train_results = np.empty(0)
         self.initial_train_results = np.empty(0)
+
+        self.memory = {}
+        self.initial_memory = {}
 
     def prepare_to_pickle(self):
         self.ow_widget = None
