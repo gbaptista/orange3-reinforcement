@@ -29,7 +29,11 @@ class Agent(AgentTrainMixin, AgentPlayMixin, Reprable):
         self.memory = {}
         self.initial_memory = {}
 
+    def make_enviroment(self):
+        self.environment = gym.make(self.environment_id)
+
     def prepare_to_pickle(self):
         self.ow_widget = None
+        self.environment = None
         self.ow_widget_on_finish = None
         self._executor = None

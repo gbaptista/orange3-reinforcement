@@ -99,6 +99,8 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
             self.agent = deepcopy(agent)
 
+            self.agent.make_enviroment()
+
             self.agent.initial_trained_episodes = agent.trained_episodes
             self.agent.initial_train_results = deepcopy(agent.train_results)
             self.agent.initial_memory = deepcopy(agent.memory)
