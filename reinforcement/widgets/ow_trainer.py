@@ -36,7 +36,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         {'label': 'Episodes:', 'key': 'setting_episodes',
          'min': 0, 'max': 999, 'step': 10},
         {'label': 'Episodes:', 'key': 'setting_episodes_k',
-         'min': 0, 'max': 100, 'step': 1, 'label_format': ' %dk'},
+         'min': 0, 'max': 999, 'step': 1, 'label_format': ' %dk'},
         {'label': 'Seconds:', 'key': 'setting_seconds',
          'min': 0, 'max': 60, 'step': 5},
         {'label': 'Minutes:', 'key': 'setting_minutes',
