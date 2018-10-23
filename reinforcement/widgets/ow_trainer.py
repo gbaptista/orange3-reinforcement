@@ -36,7 +36,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         {'label': 'Episodes:', 'key': 'setting_episodes',
          'min': 0, 'max': 999, 'step': 10},
         {'label': 'Episodes:', 'key': 'setting_episodes_k',
-         'min': 0, 'max': 100, 'step': 1, 'label_format': ' %dk'},
+         'min': 0, 'max': 999, 'step': 1, 'label_format': ' %dk'},
         {'label': 'Seconds:', 'key': 'setting_seconds',
          'min': 0, 'max': 60, 'step': 5},
         {'label': 'Minutes:', 'key': 'setting_minutes',
@@ -51,6 +51,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
 
     class Outputs:
         agent = Output("Agent", Agent)
+        real_time_agent = Output("Real-time Agent", Agent)
 
     def __init__(self):
         super().__init__()
@@ -70,6 +71,7 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
         self.agent.train(self.episodes(),
                          self.seconds(),
                          self,
+                         methodinvoke(self, "on_progress"),
                          methodinvoke(self, "on_finish"))
 
     def seconds(self):
@@ -84,6 +86,11 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
     @pyqtSlot()
     def on_finish(self):
         self.Outputs.agent.send(self.agent)
+        self.Outputs.real_time_agent.send(self.agent)
+
+    @pyqtSlot()
+    def on_progress(self):
+        self.Outputs.real_time_agent.send(self.agent)
 
     @Inputs.agent
     def set_agent(self, agent):
@@ -91,6 +98,8 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
             agent.prepare_to_pickle()
 
             self.agent = deepcopy(agent)
+
+            self.agent.make_enviroment()
 
             self.agent.initial_trained_episodes = agent.trained_episodes
             self.agent.initial_train_results = deepcopy(agent.train_results)
@@ -101,4 +110,5 @@ class OWTrainer(AutoApplyWidgetMixin, SlidersWidgetMixin, ReinforcementWidget):
             self.agent.train(self.episodes(),
                              self.seconds(),
                              self,
+                             methodinvoke(self, "on_progress"),
                              methodinvoke(self, "on_finish"))

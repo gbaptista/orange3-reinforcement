@@ -15,8 +15,6 @@ class QLearningAgent(Agent, EpsilonGreedyMixin):
         self.number_of_actions = self.environment.action_space.n
         self.gamma = 0
 
-        self.memory = {}
-
         self.memory['q_table'] = np.zeros((self.number_of_states,
                                            self.number_of_actions))
 

@@ -1,6 +1,9 @@
+mpi4py>=3.0.0
 Orange3>=3.16.0
 SIP>=4.19.8
 PyQt5>=5.11.2
 gym>=0.10.5
 numpy>=1.15.2
 pyqtgraph>=0.10.0
+tensorflow>=1.11.0
+baselines>=0.1.5
